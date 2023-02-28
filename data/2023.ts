@@ -1,4 +1,6 @@
-const strings = [
+import { DataItem } from "../types";
+
+const strings: DataItem[] = [
   {
     date: "2023-02-28",
     value:

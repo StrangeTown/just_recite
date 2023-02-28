@@ -3,6 +3,7 @@ import data from "../data/index"
 import get from "lodash.get"
 import { useState } from "react"
 import { Feather } from "@expo/vector-icons"
+import { DataItem } from "../types"
 
 const totalTimes = 10
 interface ReciteProgressProps {
@@ -31,12 +32,14 @@ interface ReciteActionsProps {
   onReciteStart: () => void
   onReciteEnd: () => void
   onGoBack: () => void
+  isComplete: boolean
 }
 function ReciteActions({
   isReciting,
   onReciteStart,
   onReciteEnd,
   onGoBack,
+  isComplete,
 }: ReciteActionsProps) {
   const [timeString, setTimeString] = useState("00:00:00") // with milliseconds
   const [timerInterval, setTimerInterval] = useState<NodeJS.Timeout | null>(
@@ -55,11 +58,12 @@ function ReciteActions({
       const minutes = Math.floor(seconds / 60)
       const milliseconds = diff % 1000
       const displayMilliseconds = Math.floor(milliseconds / 10)
-      setTimeString(
-        `${minutes.toString().padStart(2, "0")}:${(seconds % 60)
-          .toString()
-          .padStart(2, "0")}:${displayMilliseconds.toString().padStart(2, "0")}`
-      )
+      const str = `${minutes.toString().padStart(2, "0")}:${(seconds % 60)
+        .toString()
+        .padStart(2, "0")}:${displayMilliseconds.toString().padStart(2, "0")}`
+      requestAnimationFrame(() => {
+        setTimeString(str)
+      })
     }, 100)
     setTimerInterval(timer)
   }
@@ -78,20 +82,20 @@ function ReciteActions({
     }
   }
 
+  const goBackVisible = !isReciting && !isComplete
+
   return (
     <>
-      <View style={styles.timer}>
-        <Text style={styles.timerText}>{timeString}</Text>
-      </View>
-
       <View style={styles.actions}>
-        <Feather
-          onPress={handleGoBack}
-          style={styles.skipBack}
-          name="arrow-left"
-          size={20}
-          color="black"
-        />
+        {goBackVisible && (
+          <Feather
+            onPress={handleGoBack}
+            style={styles.skipBack}
+            name="arrow-left"
+            size={20}
+            color="black"
+          />
+        )}
 
         {!isReciting && (
           <TouchableOpacity
@@ -103,6 +107,7 @@ function ReciteActions({
         )}
         {isReciting && (
           <TouchableOpacity style={styles.reciteEnd} onPress={handleReciteEnd}>
+            <Text style={styles.reciteEndText}>{timeString}</Text>
             <Text style={styles.reciteEndText}>结束</Text>
           </TouchableOpacity>
         )}
@@ -110,6 +115,23 @@ function ReciteActions({
     </>
   )
 }
+
+interface DateStringProps {
+  isCompleted: boolean
+}
+function DateString({ isCompleted }: DateStringProps) {
+  const dateString = new Date().toDateString().slice(4)
+
+  return (
+    <>
+      <Text style={
+        [styles.date,
+        isCompleted ? styles.dateCompleted : {}]
+      }>{dateString}</Text>
+    </>
+  )
+}
+
 
 interface ReciteProps {
   date: string
@@ -120,7 +142,7 @@ export default function Recite({ date }: ReciteProps) {
 
   const currentYear = new Date().getFullYear().toString()
   const dataYear = data[currentYear]
-  const dataDate = dataYear.find((item: { date: string }) => item.date === date)
+  const dataDate = dataYear.find((item: DataItem) => item.date === date)
 
   const value = get(dataDate, "value", "No data for this date")
 
@@ -131,15 +153,23 @@ export default function Recite({ date }: ReciteProps) {
     })
   }
 
+  const isCompleted = reciteProgress === totalTimes
+
   return (
     <View style={styles.container}>
-      <Text style={styles.value}>{value}</Text>
+      
+      {/* Date */}
+      <DateString isCompleted={isCompleted} />
 
       {/* Recite Progress */}
       <ReciteProgress value={reciteProgress} />
 
+      {/* Value */}
+      <Text style={styles.value}>{value}</Text>
+
       {/* Actions */}
       <ReciteActions
+        isComplete={isCompleted}
         isReciting={isReciting}
         onReciteStart={() => setIsReciting(true)}
         onReciteEnd={handleReciteEnd}
@@ -150,8 +180,15 @@ export default function Recite({ date }: ReciteProps) {
 }
 
 const styles = StyleSheet.create({
+  dateCompleted: {
+    textDecorationLine: "line-through",
+  },
+  date: {
+    fontSize: 14,
+    textAlign: "center",
+  },
   skipBack: {
-    marginRight: 20,
+    marginRight: 30,
   },
   timer: {
     marginTop: 20,
@@ -164,10 +201,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   reciteProgressItem: {
-    width: 10,
-    height: 10,
+    width: 6,
+    height: 6,
     borderRadius: 5,
-    backgroundColor: "gray",
+    backgroundColor: "#ccc",
     marginHorizontal: 5,
   },
   reciteProgressItemDone: {
@@ -178,6 +215,7 @@ const styles = StyleSheet.create({
   },
   reciteEndText: {
     color: "white",
+    textAlign: "center",
   },
   reciteStart: {
     backgroundColor: "green",
@@ -188,20 +226,26 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     padding: 10,
     borderRadius: 5,
-  },
-  actions: {
-    marginTop: 20,
+    display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
+    width: 140,
   },
-  reciteProgress: {
+  actions: {
     marginTop: 40,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
+  reciteProgress: {
+    marginTop: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   value: {
+    marginTop: 40,
     fontSize: 20,
     lineHeight: 30,
   },
