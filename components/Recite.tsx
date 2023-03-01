@@ -4,21 +4,32 @@ import get from "lodash.get"
 import { useState } from "react"
 import { Feather } from "@expo/vector-icons"
 import { DataItem } from "../types"
+import Config from "../constants/Config"
+import { useDispatch, useSelector } from "react-redux"
+import { selectProgress, updateProgress } from "../redux/todaySlice"
 
-const totalTimes = 10
-interface ReciteProgressProps {
-  value: number
-}
-function ReciteProgress({ value }: ReciteProgressProps) {
+interface ReciteProgressProps {}
+function ReciteProgress({}: ReciteProgressProps) {
+  const progressArr = useSelector(selectProgress)
+
+  let longestDuration = 0
+  progressArr.forEach((item) => {
+    if (item.duration > longestDuration) {
+      longestDuration = item.duration
+    }
+  })
+
+
   return (
     <View style={styles.reciteProgress}>
-      {Array.from({ length: totalTimes }, (_, index) => {
+      {progressArr.map((item, index) => {
+        const hasDuration = item.duration > 0
         return (
           <View
             key={index}
             style={[
               styles.reciteProgressItem,
-              index < value ? styles.reciteProgressItemDone : {},
+              hasDuration ? styles.reciteProgressItemDone : {},
             ]}
           />
         )
@@ -124,21 +135,24 @@ function DateString({ isCompleted }: DateStringProps) {
 
   return (
     <>
-      <Text style={
-        [styles.date,
-        isCompleted ? styles.dateCompleted : {}]
-      }>{dateString}</Text>
+      <Text style={[styles.date, isCompleted ? styles.dateCompleted : {}]}>
+        {dateString}
+      </Text>
     </>
   )
 }
-
 
 interface ReciteProps {
   date: string
 }
 export default function Recite({ date }: ReciteProps) {
   const [isReciting, setIsReciting] = useState(false)
-  const [reciteProgress, setReciteProgress] = useState(0)
+  const dispatch = useDispatch()
+  const progressArr = useSelector(selectProgress)
+  const progressItemsWithDuration = progressArr.filter(
+    (item) => item.duration !== 0
+  )
+  const lastActiveItemIndex = progressItemsWithDuration.length - 1
 
   const currentYear = new Date().getFullYear().toString()
   const dataYear = data[currentYear]
@@ -148,21 +162,39 @@ export default function Recite({ date }: ReciteProps) {
 
   const handleReciteEnd = () => {
     setIsReciting(false)
-    setReciteProgress((prev) => {
-      return Math.min(prev + 1, totalTimes)
-    })
+    dispatch(
+      updateProgress({
+        index:
+          lastActiveItemIndex === progressArr.length - 1
+            ? lastActiveItemIndex
+            : lastActiveItemIndex + 1,
+        item: {
+          duration: 1,
+        },
+      })
+    )
+  }
+  const handleGoBack = () => {
+    dispatch(
+      updateProgress({
+        index: lastActiveItemIndex === -1 ? 0 : lastActiveItemIndex,
+        item: {
+          duration: 0,
+        },
+      })
+    )
   }
 
-  const isCompleted = reciteProgress === totalTimes
+  const isCompleted =
+    progressItemsWithDuration.length === Config.todayTotalTimes
 
   return (
     <View style={styles.container}>
-      
       {/* Date */}
       <DateString isCompleted={isCompleted} />
 
       {/* Recite Progress */}
-      <ReciteProgress value={reciteProgress} />
+      <ReciteProgress />
 
       {/* Value */}
       <Text style={styles.value}>{value}</Text>
@@ -173,7 +205,7 @@ export default function Recite({ date }: ReciteProps) {
         isReciting={isReciting}
         onReciteStart={() => setIsReciting(true)}
         onReciteEnd={handleReciteEnd}
-        onGoBack={() => setReciteProgress((prev) => Math.max(prev - 1, 0))}
+        onGoBack={handleGoBack}
       />
     </View>
   )
