@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import todayReducer from '../redux/todaySlice'
+import reviewSlice from "./reviewSlice";
 import persist from "../utils/persist"
 
 const store = configureStore({
   reducer: {
     today: todayReducer,
+    review: reviewSlice
   }
 })
 

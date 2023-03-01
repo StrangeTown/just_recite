@@ -7,6 +7,7 @@ import { DataItem } from "../types"
 import Config from "../constants/Config"
 import { useDispatch, useSelector } from "react-redux"
 import { selectProgress, updateProgress } from "../redux/todaySlice"
+import { addCompleted } from "../redux/reviewSlice"
 
 interface ReciteProgressProps {}
 function ReciteProgress({}: ReciteProgressProps) {
@@ -18,7 +19,6 @@ function ReciteProgress({}: ReciteProgressProps) {
       longestDuration = item.duration
     }
   })
-
 
   return (
     <View style={styles.reciteProgress}>
@@ -154,20 +154,29 @@ export default function Recite({ date }: ReciteProps) {
   )
   const lastActiveItemIndex = progressItemsWithDuration.length - 1
 
-  const currentYear = new Date().getFullYear().toString()
-  const dataYear = data[currentYear]
-  const dataDate = dataYear.find((item: DataItem) => item.date === date)
+  const todayData = data.find((item: DataItem) => item.date === date)
 
-  const value = get(dataDate, "value", "No data for this date")
+  const value = get(todayData, "value", "No data for this date")
 
   const handleReciteEnd = () => {
     setIsReciting(false)
+    if (lastActiveItemIndex === progressArr.length - 1) {
+      return
+    }
+
+    const newIndex = lastActiveItemIndex + 1
+
+    if (newIndex === progressArr.length - 1) {
+      dispatch(
+        addCompleted({
+          date,
+        })
+      )
+    }
+
     dispatch(
       updateProgress({
-        index:
-          lastActiveItemIndex === progressArr.length - 1
-            ? lastActiveItemIndex
-            : lastActiveItemIndex + 1,
+        index: newIndex,
         item: {
           duration: 1,
         },
