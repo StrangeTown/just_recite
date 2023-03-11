@@ -67,7 +67,7 @@ function BottomTabNavigator() {
         component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           title: '今天',
-          tabBarIcon: ({ color }) => <TabBarIcon name='circle-o' color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name='circle-o-notch' color={color} />,
         })}
       />
       <BottomTab.Screen
@@ -75,7 +75,7 @@ function BottomTabNavigator() {
         component={TabTwoScreen}
         options={{
           title: '回顾',
-          tabBarIcon: ({ color }) => <TabBarIcon name='circle-o-notch' color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name='circle-o' color={color} />,
         }}
       />
     </BottomTab.Navigator>

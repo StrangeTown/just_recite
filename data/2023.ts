@@ -41,6 +41,11 @@ const strings: DataItem[] = [
     value:
     "Meta lost $13.7 billion on its Reality Labs segment in 2022. That’s the business unit responsible for building the company’s ambitious metaverse technologies. Reality Labs generated revenue of $727 million in the fourth quarter, and $2.16 billion for all of 2022 — a decline from $2.27 billion in 2021 — including sales of Quest headsets.",
   },
+  {
+    date: "2023-03-08",
+    value:
+    "The company behind Funko Pop collectibles, those small figurines that vaguely represent celebrities and fictional characters and which you likely ignore at your local GameStop, vastly over-estimated demand and is dumping $30 million worth of figurines in a landfill, Kotaku reports.",
+  },
 ]
 
 export default strings
