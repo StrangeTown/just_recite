@@ -113,7 +113,7 @@ function ReciteActions({
             style={styles.reciteStart}
             onPress={handleReciteStart}
           >
-            <Text style={styles.reciteStartText}>背记</Text>
+            <Text style={styles.reciteStartText}>开始背记</Text>
           </TouchableOpacity>
         )}
         {isReciting && (
@@ -139,6 +139,41 @@ function DateString({ isCompleted }: DateStringProps) {
         {dateString}
       </Text>
     </>
+  )
+}
+
+interface ReciteValuesProps {
+  value: string
+  isReciting: boolean
+}
+const ReciteValues = ({ value, isReciting }: ReciteValuesProps) => {
+  const words = value.split(" ")
+
+  // if is reciting, only show the first word every sentence
+  let visibleArr: number[] = []
+  for (let i = 0; i < words.length; i++) {
+    if (isReciting) {
+      if (i === 0) {
+        visibleArr.push(i)
+      } else if (words[i - 1].endsWith(".")) {
+        visibleArr.push(i)
+      }
+    } else {
+      visibleArr.push(i)
+    }
+  }
+
+  return (
+    <View style={styles.paragraph}>
+      {words.map((word, index) => {
+        const visible = visibleArr.includes(index)
+        return (
+          <Text key={index} style={[styles.word, visible ? {} : styles.wordHide]}>
+            {word}
+          </Text>
+        )
+      })}
+    </View>
   )
 }
 
@@ -206,7 +241,8 @@ export default function Recite({ date }: ReciteProps) {
       <ReciteProgress />
 
       {/* Value */}
-      <Text style={styles.value}>{value}</Text>
+      {/* <Text style={styles.value}>{value}</Text> */}
+      <ReciteValues value={value} isReciting={isReciting} />
 
       {/* Actions */}
       <ReciteActions
@@ -221,6 +257,21 @@ export default function Recite({ date }: ReciteProps) {
 }
 
 const styles = StyleSheet.create({
+  wordHide: {
+    color: 'rgba(0,0,0,0.06)',
+  },
+  paragraph: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    marginTop: 20,
+  },
+  word: {
+    fontSize: 20,
+    marginHorizontal: 3,
+    lineHeight: 30,
+  },
   dateCompleted: {
     textDecorationLine: "line-through",
   },

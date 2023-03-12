@@ -46,6 +46,16 @@ const strings: DataItem[] = [
     value:
     "The company behind Funko Pop collectibles, those small figurines that vaguely represent celebrities and fictional characters and which you likely ignore at your local GameStop, vastly over-estimated demand and is dumping $30 million worth of figurines in a landfill, Kotaku reports.",
   },
+  {
+    date: "2023-03-12",
+    value:
+    "Nearly a quarter million Floridians are being warned to avoid washing their face with tap water after a man died from a brain-eating amoeba in February.",
+  },
+  {
+    date: "2023-03-13",
+    value:
+    "During the immediate aftermath of the DART mission — NASA's first asteroid target practice — the Hubble Space Telescope captured the hour-by-hour changes as the space rock cast off over 1,000 tons of debris. The time-lapse, shown below, depicts the rock and dust spraying out into a complex pattern for days after the impact.",
+  },
 ]
 
 export default strings
