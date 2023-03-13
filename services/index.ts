@@ -1,4 +1,5 @@
 import get from "lodash.get"
+import Config from "../constants/Config"
 import { setCompleted } from "../redux/reviewSlice"
 import store, { RootState } from "../redux/store"
 import { setDate, setProgress, setReviewCompleted } from "../redux/todaySlice"
@@ -18,7 +19,13 @@ const initToday = (state: any) => {
   }
 
   store.dispatch(setDate(todayDate))
-  store.dispatch(setProgress(todayProgress))
+  store.dispatch(
+    setProgress(
+      todayProgress.length !== Config.todayTotalTimes
+        ? Config.getInitialTodayProgress()
+        : todayProgress
+    )
+  )
   store.dispatch(setReviewCompleted(todayReviewCompleted))
 }
 

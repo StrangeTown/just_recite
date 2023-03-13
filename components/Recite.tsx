@@ -7,7 +7,7 @@ import { DataItem } from "../types"
 import Config from "../constants/Config"
 import { useDispatch, useSelector } from "react-redux"
 import { selectProgress, updateProgress } from "../redux/todaySlice"
-import { addCompleted } from "../redux/reviewSlice"
+import { addCompleted, removeExtraCompleted } from "../redux/reviewSlice"
 
 interface ReciteProgressProps {}
 function ReciteProgress({}: ReciteProgressProps) {
@@ -150,12 +150,15 @@ const ReciteValues = ({ value, isReciting }: ReciteValuesProps) => {
   const words = value.split(" ")
 
   // if is reciting, only show the first word every sentence
+  const sentenceEndings = [".", "!", "?"]
   let visibleArr: number[] = []
   for (let i = 0; i < words.length; i++) {
     if (isReciting) {
       if (i === 0) {
         visibleArr.push(i)
-      } else if (words[i - 1].endsWith(".")) {
+      } else if (
+        sentenceEndings.some((ending) => words[i - 1].endsWith(ending))
+      ) {
         visibleArr.push(i)
       }
     } else {
@@ -168,7 +171,10 @@ const ReciteValues = ({ value, isReciting }: ReciteValuesProps) => {
       {words.map((word, index) => {
         const visible = visibleArr.includes(index)
         return (
-          <Text key={index} style={[styles.word, visible ? {} : styles.wordHide]}>
+          <Text
+            key={index}
+            style={[styles.word, visible ? {} : styles.wordHide]}
+          >
             {word}
           </Text>
         )
@@ -207,6 +213,7 @@ export default function Recite({ date }: ReciteProps) {
           date,
         })
       )
+      dispatch(removeExtraCompleted())
     }
 
     dispatch(
@@ -258,7 +265,7 @@ export default function Recite({ date }: ReciteProps) {
 
 const styles = StyleSheet.create({
   wordHide: {
-    color: 'rgba(0,0,0,0.06)',
+    color: "rgba(0,0,0,0.06)",
   },
   paragraph: {
     flexDirection: "row",

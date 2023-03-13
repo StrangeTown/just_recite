@@ -19,7 +19,7 @@ interface TodayState {
 }
 
 const initialState: TodayState = {
-  progress: new Array(Config.todayTotalTimes).fill({ duration: 0 }),
+  progress: Config.getInitialTodayProgress(),
   date: "",
   reviewCompleted: [],
 }

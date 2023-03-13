@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import Config from "../constants/Config"
 import { RootState } from "./store"
 
 interface completedItem {
@@ -33,11 +34,22 @@ export const reviewSlice = createSlice({
       }
       state.completed.push(action.payload)
     },
+    removeExtraCompleted: (state) => {
+      if (state.completed.length > Config.reviewListLimit) {
+        state.completed = state.completed.slice(
+          state.completed.length - Config.reviewListLimit
+        )
+      }
+    },
   },
 })
 
-export const { setCompleted, removeCompleted, addCompleted } =
-  reviewSlice.actions
+export const {
+  setCompleted,
+  removeCompleted,
+  addCompleted,
+  removeExtraCompleted,
+} = reviewSlice.actions
 export const selectCompleted = (state: RootState) => state.review.completed
 
 export default reviewSlice.reducer
