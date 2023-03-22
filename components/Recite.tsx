@@ -8,6 +8,7 @@ import Config from "../constants/Config"
 import { useDispatch, useSelector } from "react-redux"
 import { selectProgress, updateProgress } from "../redux/todaySlice"
 import { addCompleted, removeExtraCompleted } from "../redux/reviewSlice"
+import { useFonts } from "expo-font"
 
 interface ReciteProgressProps {}
 function ReciteProgress({}: ReciteProgressProps) {
@@ -148,9 +149,12 @@ interface ReciteValuesProps {
 }
 const ReciteValues = ({ value, isReciting }: ReciteValuesProps) => {
   const words = value.split(" ")
+  const [fontsLoaded] = useFonts({
+    "Ubuntu Medium": require("../assets/fonts/Ubuntu-Medium.ttf"),
+  })
 
   // if is reciting, only show the first word every sentence
-  const sentenceEndings = [".", "!", "?"]
+  const sentenceEndings = [".", "!", "?", ",", ";"]
   let visibleArr: number[] = []
   for (let i = 0; i < words.length; i++) {
     if (isReciting) {
@@ -164,6 +168,10 @@ const ReciteValues = ({ value, isReciting }: ReciteValuesProps) => {
     } else {
       visibleArr.push(i)
     }
+  }
+
+  if (!fontsLoaded) {
+    return null
   }
 
   return (
@@ -190,6 +198,7 @@ export default function Recite({ date }: ReciteProps) {
   const [isReciting, setIsReciting] = useState(false)
   const dispatch = useDispatch()
   const progressArr = useSelector(selectProgress)
+
   const progressItemsWithDuration = progressArr.filter(
     (item) => item.duration !== 0
   )
@@ -278,6 +287,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginHorizontal: 3,
     lineHeight: 30,
+    // fontFamily: "Ubuntu Medium",
   },
   dateCompleted: {
     textDecorationLine: "line-through",
