@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "just_recite",
+    "name": "小背英语",
     "slug": "just_recite",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,7 +19,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "just-recite"
     },
     "android": {
       "adaptiveIcon": {
@@ -29,6 +30,11 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9c07d726-4c99-4111-be05-63f22a600654"
+      }
     }
   }
 }
