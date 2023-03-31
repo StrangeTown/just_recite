@@ -4,6 +4,7 @@ import { setCompleted } from "../redux/reviewSlice"
 import store, { RootState } from "../redux/store"
 import { setDate, setProgress, setReviewCompleted } from "../redux/todaySlice"
 import persist from "../utils/persist"
+import { setItems } from "../redux/customSlice"
 
 const initToday = (state: any) => {
   const todayProgress = get(state, "today.progress", [])
@@ -34,11 +35,17 @@ const initReview = (state: any) => {
   store.dispatch(setCompleted(completed))
 }
 
+const initCustom = (state: any) => {
+  const customItems = get(state, "custom.items", [])
+  store.dispatch(setItems(customItems))
+}
+
 const initStateFromLocalStorage = async () => {
   const state = await persist.getStoredState()
   if (state) {
     initToday(state)
     initReview(state)
+    initCustom(state)
   }
 }
 

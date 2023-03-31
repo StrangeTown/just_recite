@@ -9,6 +9,21 @@ import { useDispatch, useSelector } from "react-redux"
 import { selectProgress, updateProgress } from "../redux/todaySlice"
 import { addCompleted, removeExtraCompleted } from "../redux/reviewSlice"
 import { useFonts } from "expo-font"
+import { addItem, selectCustomItems } from "../redux/customSlice"
+import AddItemModal from "./recite/AddItemModal"
+
+interface ReplaceWithCustomProps {
+  onReplacePress: () => void
+}
+const ReplaceWithCustom: React.FC<ReplaceWithCustomProps> = ({
+  onReplacePress,
+}) => {
+  return (
+    <TouchableOpacity style={styles.replaceWithCustom} onPress={onReplacePress}>
+      <Text style={styles.replaceWithCustomText}>今天背自己的内容</Text>
+    </TouchableOpacity>
+  )
+}
 
 interface ReciteProgressProps {}
 function ReciteProgress({}: ReciteProgressProps) {
@@ -196,25 +211,31 @@ interface ReciteProps {
 }
 export default function Recite({ date }: ReciteProps) {
   const [isReciting, setIsReciting] = useState(false)
+  const [AddItemVisible, setAddItemVisible] = useState(false)
   const dispatch = useDispatch()
   const progressArr = useSelector(selectProgress)
+  const customItems = useSelector(selectCustomItems)
 
   const progressItemsWithDuration = progressArr.filter(
     (item) => item.duration !== 0
   )
-  const lastActiveItemIndex = progressItemsWithDuration.length - 1
+  const prevActiveItemIndex = progressItemsWithDuration.length - 1
 
-  const todayData = data.find((item: DataItem) => item.date === date)
+  // use custom items first if available
+  let todayData = customItems.find((item) => item.date === date)
+  if (!todayData) {
+    todayData = data.find((item) => item.date === date)
+  }
 
   const value = get(todayData, "value", "No data for this date")
 
   const handleReciteEnd = () => {
     setIsReciting(false)
-    if (lastActiveItemIndex === progressArr.length - 1) {
+    if (prevActiveItemIndex === progressArr.length - 1) {
       return
     }
 
-    const newIndex = lastActiveItemIndex + 1
+    const newIndex = prevActiveItemIndex + 1
 
     if (newIndex === progressArr.length - 1) {
       dispatch(
@@ -237,12 +258,17 @@ export default function Recite({ date }: ReciteProps) {
   const handleGoBack = () => {
     dispatch(
       updateProgress({
-        index: lastActiveItemIndex === -1 ? 0 : lastActiveItemIndex,
+        index: prevActiveItemIndex === -1 ? 0 : prevActiveItemIndex,
         item: {
           duration: 0,
         },
       })
     )
+  }
+
+  const handleAddItem = (item: DataItem) => {
+    dispatch(addItem(item))
+    setAddItemVisible(false)
   }
 
   const isCompleted =
@@ -257,8 +283,22 @@ export default function Recite({ date }: ReciteProps) {
       <ReciteProgress />
 
       {/* Value */}
-      {/* <Text style={styles.value}>{value}</Text> */}
       <ReciteValues value={value} isReciting={isReciting} />
+
+      <ReplaceWithCustom
+        onReplacePress={() => {
+          setAddItemVisible(true)
+        }}
+      />
+      <AddItemModal
+        visible={AddItemVisible}
+        onDismiss={() => {
+          setAddItemVisible(false)
+        }}
+        onAdd={(item) => {
+          handleAddItem(item)
+        }}
+      />
 
       {/* Actions */}
       <ReciteActions
@@ -273,6 +313,17 @@ export default function Recite({ date }: ReciteProps) {
 }
 
 const styles = StyleSheet.create({
+  replaceWithCustom: {
+    marginTop: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  replaceWithCustomText: {
+    fontSize: 14,
+    color: "rgba(0,0,0,0.5)",
+    textDecorationLine: "underline",
+  },
   wordHide: {
     color: "rgba(0,0,0,0.06)",
   },
@@ -342,7 +393,7 @@ const styles = StyleSheet.create({
     width: 140,
   },
   actions: {
-    marginTop: 40,
+    marginTop: 60,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
@@ -353,16 +404,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  value: {
-    marginTop: 40,
-    fontSize: 20,
-    lineHeight: 30,
-  },
   container: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 20,
-    // backgroundColor: '#d3d3d3',
   },
 })

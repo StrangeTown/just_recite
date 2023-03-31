@@ -152,6 +152,10 @@ const strings: DataItem[] = [
       "In my opinion, one of the most important qualities in a leader is the ability to inspire and motivate others to achieve their goals and reach their full potential.",
   },
   {
+    date: '2023-03-31',
+    value: "I'm a big fan of cooking, and I love experimenting with new recipes and ingredients to create delicious and healthy meals for myself and my family.",
+  },
+  {
     date: "2023-04-01",
     value:
       "I'm really looking forward to the weekend, I'm planning to go hiking with some friends in the mountains and have a picnic with some delicious food and drinks.",
