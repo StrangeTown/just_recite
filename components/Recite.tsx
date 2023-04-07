@@ -7,7 +7,7 @@ import { DataItem } from "../types"
 import Config from "../constants/Config"
 import { useDispatch, useSelector } from "react-redux"
 import { selectProgress, updateProgress } from "../redux/todaySlice"
-import { addCompleted, removeExtraCompleted } from "../redux/reviewSlice"
+import { addCompleted } from "../redux/reviewSlice"
 import { useFonts } from "expo-font"
 import { addItem, selectCustomItems } from "../redux/customSlice"
 import AddItemModal from "./recite/AddItemModal"
@@ -231,19 +231,13 @@ export default function Recite({ date }: ReciteProps) {
 
   const handleReciteEnd = () => {
     setIsReciting(false)
-    if (prevActiveItemIndex === progressArr.length - 1) {
-      return
-    }
+    const lastIndex = progressArr.length - 1
+
+    if (prevActiveItemIndex === lastIndex) return
 
     const newIndex = prevActiveItemIndex + 1
-
-    if (newIndex === progressArr.length - 1) {
-      dispatch(
-        addCompleted({
-          date,
-        })
-      )
-      dispatch(removeExtraCompleted())
+    if (newIndex === lastIndex) {
+      dispatch(addCompleted(value))
     }
 
     dispatch(

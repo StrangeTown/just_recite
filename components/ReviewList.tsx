@@ -1,7 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
 import { selectCompleted } from "../redux/reviewSlice"
-import data from "../data/index"
 import { useState } from "react"
 import { DataItem } from "../types"
 import { addReviewCompleted, selectReviewCompleted } from "../redux/todaySlice"
@@ -59,20 +58,10 @@ const ReviewList = () => {
     return new Date(b.date).getTime() - new Date(a.date).getTime()
   })
 
-  const list = sortedCompleted.map((item, index) => {
-    const itemVal = data.find((d) => {
-      return d.date === item.date
-    })
-
-    return {
-      date: item.date,
-      value: itemVal?.value,
-    }
-  })
   return (
     <>
       <View style={styles.listContainer}>
-        {list.map((item, index) => {
+        {sortedCompleted.map((item, index) => {
           return (
             <Item key={index} date={item.date} value={item.value as string} />
           )
