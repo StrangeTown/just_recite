@@ -11,6 +11,7 @@ import { addCompleted } from "../redux/reviewSlice"
 import { useFonts } from "expo-font"
 import { addItem, selectCustomItems } from "../redux/customSlice"
 import AddItemModal from "./recite/AddItemModal"
+import Colors from "../constants/Colors"
 
 interface ReplaceWithCustomProps {
   onReplacePress: () => void
@@ -164,9 +165,6 @@ interface ReciteValuesProps {
 }
 const ReciteValues = ({ value, isReciting }: ReciteValuesProps) => {
   const words = value.split(" ")
-  const [fontsLoaded] = useFonts({
-    "Ubuntu Medium": require("../assets/fonts/Ubuntu-Medium.ttf"),
-  })
 
   // if is reciting, only show the first word every sentence
   const sentenceEndings = [".", "!", "?", ",", ";"]
@@ -183,10 +181,6 @@ const ReciteValues = ({ value, isReciting }: ReciteValuesProps) => {
     } else {
       visibleArr.push(i)
     }
-  }
-
-  if (!fontsLoaded) {
-    return null
   }
 
   return (
@@ -268,6 +262,17 @@ export default function Recite({ date }: ReciteProps) {
   const isCompleted =
     progressItemsWithDuration.length === Config.todayTotalTimes
 
+  const [fontsLoaded] = useFonts({
+    "Ubuntu Medium": require("../assets/fonts/Ubuntu/Ubuntu-Medium.ttf"),
+    "Ubuntu Regular": require("../assets/fonts/Ubuntu/Ubuntu-Regular.ttf"),
+    "Ubuntu Light Italic": require("../assets/fonts/Ubuntu/Ubuntu-LightItalic.ttf"),
+    "Ubuntu Light": require("../assets/fonts/Ubuntu/Ubuntu-Light.ttf"),
+  })
+
+  if (!fontsLoaded) {
+    return null
+  }
+
   return (
     <View style={styles.container}>
       {/* Date */}
@@ -315,7 +320,7 @@ const styles = StyleSheet.create({
   },
   replaceWithCustomText: {
     fontSize: 14,
-    color: "rgba(0,0,0,0.5)",
+    color: Colors.light.lightText,
     textDecorationLine: "underline",
   },
   wordHide: {
@@ -332,7 +337,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginHorizontal: 3,
     lineHeight: 30,
-    // fontFamily: "Ubuntu Medium",
+    fontFamily: "Ubuntu Regular",
+    color: Colors.light.valueColor,
   },
   dateCompleted: {
     textDecorationLine: "line-through",
@@ -340,6 +346,8 @@ const styles = StyleSheet.create({
   date: {
     fontSize: 14,
     textAlign: "center",
+    color: Colors.light.darkText,
+    fontFamily: "Ubuntu Light Italic",
   },
   skipBack: {
     marginRight: 30,
@@ -362,7 +370,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   reciteProgressItemDone: {
-    backgroundColor: "green",
+    backgroundColor: Colors.light.primaryColor,
   },
   reciteStartText: {
     color: "white",
@@ -372,12 +380,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   reciteStart: {
-    backgroundColor: "green",
+    backgroundColor: Colors.light.primaryColor,
     padding: 10,
     borderRadius: 5,
   },
   reciteEnd: {
-    backgroundColor: "red",
+    backgroundColor: "#c89fa5",
     padding: 10,
     borderRadius: 5,
     display: "flex",

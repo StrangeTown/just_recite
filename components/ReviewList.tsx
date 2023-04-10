@@ -4,6 +4,7 @@ import { selectCompleted } from "../redux/reviewSlice"
 import { useState } from "react"
 import { DataItem } from "../types"
 import { addReviewCompleted, selectReviewCompleted } from "../redux/todaySlice"
+import Colors from "../constants/Colors"
 
 const Item = ({ date, value }: DataItem) => {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
   listItemValueText: {
     fontSize: 18,
     lineHeight: 28,
-    color: "#333",
+    color: Colors.light.valueColor,
   },
   listItem: {
     flexDirection: "row",
