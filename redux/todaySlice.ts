@@ -8,7 +8,7 @@ interface progerssItem {
 type progress = progerssItem[]
 
 interface reviewCompletedItem {
-  date: string
+  id: string
 }
 type reviewCompleted = reviewCompletedItem[]
 
@@ -31,11 +31,16 @@ export const todaySlice = createSlice({
     setReviewCompleted: (state, action: { payload: reviewCompleted }) => {
       state.reviewCompleted = action.payload
     },
-    addReviewCompleted: (state, action: { payload: string }) => {
-      if (state.reviewCompleted.find((item) => item.date === action.payload)) {
-        return
+    toggleReviewCompleted: (state, action: { payload: { id: string } }) => {
+      const index = state.reviewCompleted.findIndex(
+        (item) => item.id === action.payload.id
+      )
+      console.log(action.payload.id, index)
+      if (index === -1) {
+        state.reviewCompleted.push({ id: action.payload.id })
+      } else {
+        state.reviewCompleted.splice(index, 1)
       }
-      state.reviewCompleted.push({ date: action.payload })
     },
     setDate: (state, action: { payload: string }) => {
       state.date = action.payload
@@ -56,7 +61,7 @@ export const {
   setProgress,
   updateProgress,
   setDate,
-  addReviewCompleted,
+  toggleReviewCompleted,
   setReviewCompleted,
 } = todaySlice.actions
 export const selectProgress = (state: RootState) => state.today.progress

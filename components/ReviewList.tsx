@@ -1,41 +1,33 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
 import { selectCompleted } from "../redux/reviewSlice"
-import { useState } from "react"
-import { DataItem } from "../types"
-import { addReviewCompleted, selectReviewCompleted } from "../redux/todaySlice"
+import {
+  toggleReviewCompleted,
+  selectReviewCompleted,
+} from "../redux/todaySlice"
 import Colors from "../constants/Colors"
+import { useFonts } from "expo-font"
 
-const Item = ({ date, value }: DataItem) => {
-  const [isExpanded, setIsExpanded] = useState(false)
+interface ItemProps {
+  date: string
+  value: string
+  id: string
+}
+
+const Item = ({ date, value, id }: ItemProps) => {
   const dispatch = useDispatch()
   const reviewCompleted = useSelector(selectReviewCompleted)
 
-  const isCompleted = reviewCompleted.map((item) => item.date).includes(date)
+  const isCompleted = reviewCompleted.map((item) => item.id).includes(id)
 
-  const handleDatePress = () => {
-    dispatch(addReviewCompleted(date))
+  const handleItemPress = () => {
+    dispatch(toggleReviewCompleted({ id }))
   }
 
   return (
-    <View style={styles.listItem}>
-      {/* Value */}
-      <View style={styles.listItemValue}>
-        <Text
-          style={styles.listItemValueText}
-          numberOfLines={isExpanded ? 0 : 1}
-          onPress={() => {
-            setIsExpanded(!isExpanded)
-          }}
-          ellipsizeMode="tail"
-        >
-          {value}
-        </Text>
-      </View>
-
+    <TouchableOpacity style={styles.listItem} onPress={handleItemPress}>
       {/* Date */}
       <View style={styles.listItemDate}>
-        <TouchableOpacity onPress={handleDatePress}>
           <Text
             style={[
               styles.listItemDateText,
@@ -44,15 +36,32 @@ const Item = ({ date, value }: DataItem) => {
           >
             {date}
           </Text>
-        </TouchableOpacity>
       </View>
-    </View>
+
+      {/* Value */}
+      <View style={styles.listItemValue}>
+        <Text style={styles.listItemValueText} ellipsizeMode="tail">
+          {value}
+        </Text>
+      </View>
+    </TouchableOpacity>
   )
 }
 
 const ReviewList = () => {
   const completed = useSelector(selectCompleted)
   const copy = [...completed]
+
+  const [fontsLoaded] = useFonts({
+    "Ubuntu Medium": require("../assets/fonts/Ubuntu/Ubuntu-Medium.ttf"),
+    "Ubuntu Regular": require("../assets/fonts/Ubuntu/Ubuntu-Regular.ttf"),
+    "Ubuntu Light Italic": require("../assets/fonts/Ubuntu/Ubuntu-LightItalic.ttf"),
+    "Ubuntu Light": require("../assets/fonts/Ubuntu/Ubuntu-Light.ttf"),
+  })
+
+  if (!fontsLoaded) {
+    return null
+  }
 
   // sort by date, latest first
   const sortedCompleted = copy.sort((a, b) => {
@@ -64,7 +73,12 @@ const ReviewList = () => {
       <View style={styles.listContainer}>
         {sortedCompleted.map((item, index) => {
           return (
-            <Item key={index} date={item.date} value={item.value as string} />
+            <Item
+              key={index}
+              date={item.date}
+              value={item.value as string}
+              id={item.id}
+            />
           )
         })}
       </View>
@@ -87,27 +101,28 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 28,
     color: "#666",
+    fontFamily: "Ubuntu Light Italic",
   },
   listItemValueText: {
     fontSize: 18,
     lineHeight: 28,
     color: Colors.light.valueColor,
+    fontFamily: "Ubuntu Regular",
   },
   listItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
+    marginBottom: 6,
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    paddingBottom: 20,
+    borderRadius: 4,
+    backgroundColor: "#fff",
+    position: "relative",
+    display: "flex",
   },
   listItemDate: {
-    width: 100,
+    alignSelf: "center",
     flexDirection: "row",
     justifyContent: "flex-end",
+    // backgroundColor: "#ddd",
   },
-  listItemValue: {
-    flex: 1,
-    marginLeft: 10,
-  },
+  listItemValue: {},
 })

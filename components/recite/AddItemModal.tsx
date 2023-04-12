@@ -8,6 +8,7 @@ import {
   View,
 } from "react-native"
 import { DataItem } from "../../types"
+import Colors from "../../constants/Colors"
 
 interface AddItemModalProps {
   visible: boolean
@@ -46,9 +47,6 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
     >
       <View style={styles.modalContainer}>
         <View style={styles.modal}>
-          <View style={styles.modalHeader}>
-            <Text style={styles.modalHeaderText}>添加自定义内容</Text>
-          </View>
           <View style={styles.modalBody}>
             <View style={styles.modalBodyItem}>
               <TextInput
@@ -88,17 +86,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modal: {
-    width: "80%",
+    width: "90%",
     backgroundColor: "#fff",
     borderRadius: 10,
     padding: 20,
-  },
-  modalHeader: {
-    marginBottom: 20,
-  },
-  modalHeaderText: {
-    fontSize: 20,
-    fontWeight: "bold",
   },
   modalBody: {
     marginBottom: 20,
@@ -110,7 +101,7 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     fontSize: 16,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: Colors.light.primaryColor,
     borderRadius: 5,
     padding: 10,
     height: 200,
@@ -121,9 +112,13 @@ const styles = StyleSheet.create({
   },
   modalFooterButton: {
     marginLeft: 10,
+    backgroundColor: Colors.light.primaryColor,
+    borderRadius: 5,
+    padding: 10,
+    
   },
   modalFooterButtonText: {
-    color: "#007bff",
+    color: '#fff',
   },
 })
 
