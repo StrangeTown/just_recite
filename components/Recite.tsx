@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import data from "../data/index"
 import get from "lodash.get"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Feather } from "@expo/vector-icons"
 import { DataItem } from "../types"
 import Config from "../constants/Config"
@@ -12,6 +12,7 @@ import { useFonts } from "expo-font"
 import { addItem, selectCustomItems } from "../redux/customSlice"
 import AddItemModal from "./recite/AddItemModal"
 import Colors from "../constants/Colors"
+import * as Speech from "expo-speech"
 
 interface ReplaceWithCustomProps {
   onReplacePress: () => void
@@ -22,6 +23,17 @@ const ReplaceWithCustom: React.FC<ReplaceWithCustomProps> = ({
   return (
     <TouchableOpacity style={styles.replaceWithCustom} onPress={onReplacePress}>
       <Text style={styles.replaceWithCustomText}>今天背自己的内容</Text>
+    </TouchableOpacity>
+  )
+}
+
+interface SpeakButtonProps {
+  onSpeakPress: () => void
+}
+const SpeakButton = ({ onSpeakPress }: SpeakButtonProps) => {
+  return (
+    <TouchableOpacity style={styles.speakButton} onPress={onSpeakPress}>
+      <Feather name="volume-2" size={24} color="#ddd" />
     </TouchableOpacity>
   )
 }
@@ -258,6 +270,17 @@ export default function Recite({ date }: ReciteProps) {
     dispatch(addItem(item))
     setAddItemVisible(false)
   }
+  const handleSpeakButtonPress = async () => {
+    Speech.speak(value, {
+      language: "en-US",
+      voice: 'com.apple.ttsbundle.Samantha-compact',
+    })
+  }
+  useEffect(() => {
+    return () => {
+      Speech.stop()
+    }
+  }, [])
 
   const isCompleted =
     progressItemsWithDuration.length === Config.todayTotalTimes
@@ -289,6 +312,8 @@ export default function Recite({ date }: ReciteProps) {
           setAddItemVisible(true)
         }}
       />
+      <SpeakButton onSpeakPress={handleSpeakButtonPress} />
+
       <AddItemModal
         visible={AddItemVisible}
         onDismiss={() => {
@@ -312,6 +337,16 @@ export default function Recite({ date }: ReciteProps) {
 }
 
 const styles = StyleSheet.create({
+  speakButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   replaceWithCustom: {
     marginTop: 20,
     flexDirection: "row",
