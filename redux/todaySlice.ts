@@ -35,7 +35,6 @@ export const todaySlice = createSlice({
       const index = state.reviewCompleted.findIndex(
         (item) => item.id === action.payload.id
       )
-      console.log(action.payload.id, index)
       if (index === -1) {
         state.reviewCompleted.push({ id: action.payload.id })
       } else {

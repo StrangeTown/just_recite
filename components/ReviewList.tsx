@@ -48,6 +48,16 @@ const Item = ({ date, value, id }: ItemProps) => {
   )
 }
 
+const EmptyList = () => {
+  return (
+    <View style={styles.emptyList}>
+      <Text style={styles.emptyListText}>
+        背过的内容会在这里显示
+      </Text>
+    </View>
+  )
+}
+
 const ReviewList = () => {
   const completed = useSelector(selectCompleted)
   const copy = [...completed]
@@ -71,6 +81,7 @@ const ReviewList = () => {
   return (
     <>
       <View style={styles.listContainer}>
+        {sortedCompleted.length === 0 && <EmptyList />}
         {sortedCompleted.map((item, index) => {
           return (
             <Item
@@ -89,6 +100,16 @@ const ReviewList = () => {
 export default ReviewList
 
 const styles = StyleSheet.create({
+  emptyList: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  emptyListText: {
+    fontSize: 15,
+    color: "#666",
+  },
   listContainer: {
     flex: 1,
     width: "100%",
