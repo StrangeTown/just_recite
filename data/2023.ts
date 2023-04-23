@@ -152,8 +152,9 @@ const strings: DataItem[] = [
       "In my opinion, one of the most important qualities in a leader is the ability to inspire and motivate others to achieve their goals and reach their full potential.",
   },
   {
-    date: '2023-03-31',
-    value: "I'm a big fan of cooking, and I love experimenting with new recipes and ingredients to create delicious and healthy meals for myself and my family.",
+    date: "2023-03-31",
+    value:
+      "I'm a big fan of cooking, and I love experimenting with new recipes and ingredients to create delicious and healthy meals for myself and my family.",
   },
   {
     date: "2023-04-01",
@@ -269,91 +270,127 @@ const strings: DataItem[] = [
     date: "2023-04-23",
     value:
       "You know, I was thinking about trying that new Italian restaurant that just opened up. I've heard their pasta is amazing.",
+    zh: "你知道吗，我想去那家刚刚开业的意大利餐厅。我听说他们的意大利面很好吃。",
+    keyPoints: ['You know, ___', 'I was thinking about ___'],
   },
   {
     date: "2023-04-24",
     value:
       "I've been really into yoga lately. It's such a great way to relax and unwind after a long day.",
+    zh: "我最近非常喜欢瑜伽。这是一个很好的放松和放松的方法，尤其是在一天结束后。",
+    keyPoints: ['I\'ve been really into ___', 'It\'s such a great way to ___'],
   },
   {
     date: "2023-04-25",
     value:
       "I'm so excited for my trip to Hawaii next month. I can't wait to lay on the beach and soak up the sun.",
+    zh: "我对下个月去夏威夷的旅行感到非常兴奋。我迫不及待地躺在海滩上，吸收阳光。",
+    keyPoints: ['I\'m so excited for ___', 'I can\'t wait to ___'],
   },
   {
     date: "2023-04-26",
     value:
       "I've been trying to learn how to play the guitar for years, but I just can't seem to get the hang of it.",
+    zh: "我已经尝试学习吉他多年了，但我似乎无法掌握它。",
+    keyPoints: ['I\'ve been trying to ___', 'I just can\'t seem to ___'],
   },
   {
     date: "2023-04-27",
     value:
       "It's crazy how much technology has changed our lives. I can't imagine going back to a world without smartphones or social media.",
+    zh: "技术如何改变了我们的生活是多么的疯狂。我无法想象回到没有智能手机或社交媒体的世界。",
+    keyPoints: ['It\'s crazy how much ___', 'I can\'t imagine going back to ___'],
   },
   {
     date: "2023-04-28",
     value:
       "I'm really looking forward to the summer. There's nothing better than spending a lazy day at the beach with friends.",
+    zh: "我非常期待夏天。没有什么比和朋友在海滩上度过一个懒散的日子更好了。",
+    keyPoints: ['I\'m really looking forward to ___', 'There\'s nothing better than ___'],
   },
   {
     date: "2023-04-29",
     value:
       "I've been trying to eat healthier lately, but it's so hard to resist all the delicious junk food out there.",
+    zh: "我最近一直在尝试健康饮食，但是抵制所有美味的垃圾食品是如此困难。",
+    keyPoints: ['I\'ve been trying to ___', 'It\'s so hard to resist ___'],
   },
   {
     date: "2023-04-30",
     value:
       "I can't believe how quickly my kids are growing up. It feels like just yesterday they were babies, and now they're almost teenagers.",
+    zh: "我无法相信我的孩子们长大得多么快。感觉就像昨天他们还是婴儿，现在他们几乎是青少年了。",
+    keyPoints: ['I can\'t believe how quickly ___', 'It feels like just yesterday ___'],
   },
   {
     date: "2023-05-01",
     value:
       "I can't believe how fast this year is going by, it feels like we just celebrated New Year's yesterday!",
+    zh: "我无法相信这一年过得有多快，感觉就像我们昨天刚刚庆祝新年一样！",
+    keyPoints: ['I can\'t believe how fast ___', 'It feels like ___'],
   },
   {
     date: "2023-05-02",
     value:
       "I really need to start working out more, my body is not as young as it used to be and I'm starting to feel the effects of not taking care of myself.",
+    zh: "我真的需要开始锻炼更多，我的身体不像以前那么年轻，我开始感受到不照顾自己的影响。",
+    keyPoints: ['I really need to start ___', 'I\'m starting to feel the effects of ___'],
   },
   {
     date: "2023-05-03",
     value:
       "I think it's important to take time for yourself every once in a while, whether that means going on a solo trip or just taking a day off to relax and recharge.",
+    zh: "我认为每隔一段时间，你需要为自己花一点时间，无论是去旅行还是只是休息一天，都很重要。",
+    keyPoints: ['I think it\'s important to ___', 'Whether that means ___ or just ___'],
   },
   {
     date: "2023-05-04",
     value:
       "I'm so excited for summer, there's nothing better than spending a day at the beach with friends and family.",
+    zh: "我对夏天感到非常兴奋，没有什么比和朋友和家人在海滩上度过一天更好了。",
+    keyPoints: ['I\'m so excited for ___', 'There\'s nothing better than ___'],
   },
   {
     date: "2023-05-05",
     value:
       "I wish I had more time to read, there are so many great books out there and I feel like I'm always falling behind on my reading list.",
+    zh: "我希望有更多的时间阅读，有很多很棒的书，我感觉我总是落后于我的阅读清单。",
+    keyPoints: ['I wish I had more time to ___', 'I feel like I\'m always falling behind on ___'],
   },
   {
     date: "2023-05-06",
     value:
       "I can't wait to try out that new restaurant downtown, I've heard such great things about their food and atmosphere.",
+    zh: "我迫不及待要尝试那家新开的餐厅，我听说他们的食物和氛围都很棒。",
+    keyPoints: ['I can\'t wait to ___', 'I\'ve heard such great things about ___'],
   },
   {
     date: "2023-05-07",
     value:
       "I'm really enjoying my new job, it's challenging but also very rewarding and I feel like I'm learning so much every day.",
+    zh: "我很享受我的新工作，它很具有挑战性，但也非常有回报，我感觉每天都在学习很多东西。",
+    keyPoints: ['I\'m really enjoying ___', 'It\'s challenging but also very rewarding and I feel like ___'],
   },
   {
     date: "2023-05-08",
     value:
       "I think it's important to stay positive and focus on the good things in life, even when things get tough.",
+    zh: "我认为保持积极向上并专注于生活中的美好事物是很重要的，即使在困难时刻也是如此。",
+    keyPoints: ['I think it\'s important to ___', 'Even when ___'],
   },
   {
     date: "2023-05-09",
     value:
       "I'm so grateful for my family and friends, they always know how to make me laugh and bring me back up when I'm feeling down.",
+    zh: "我对我的家人和朋友感到非常感激，他们总是知道如何让我笑起来，当我感到沮丧时，他们会让我回到正轨。",
+    keyPoints: ['I\'m so grateful for ___', 'They always know how to ___ and ___'],
   },
   {
     date: "2023-05-10",
     value:
       "I can't believe it's already May, time really does fly by when you're having fun!",
+    zh: "我无法相信已经是五月了，当你玩得开心时，时间真的会飞快！",
+    keyPoints: ['I can\'t believe it\'s already ___', 'Time really does fly by when ___'],
   },
 ]
 

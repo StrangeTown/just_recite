@@ -37,4 +37,6 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
 export type DataItem = {
   date: string;
   value: string;
+  zh?: string;
+  keyPoints?: string[];
 };

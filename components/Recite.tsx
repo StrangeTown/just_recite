@@ -1,42 +1,16 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import data from "../data/index"
 import get from "lodash.get"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Feather } from "@expo/vector-icons"
-import { DataItem } from "../types"
 import Config from "../constants/Config"
 import { useDispatch, useSelector } from "react-redux"
 import { selectProgress, updateProgress } from "../redux/todaySlice"
 import { addCompleted } from "../redux/reviewSlice"
 import { useFonts } from "expo-font"
-import { addItem, selectCustomItems } from "../redux/customSlice"
-import AddItemModal from "./recite/AddItemModal"
+import { selectCustomItems } from "../redux/customSlice"
 import Colors from "../constants/Colors"
-import * as Speech from "expo-speech"
-
-interface ReplaceWithCustomProps {
-  onReplacePress: () => void
-}
-const ReplaceWithCustom: React.FC<ReplaceWithCustomProps> = ({
-  onReplacePress,
-}) => {
-  return (
-    <TouchableOpacity style={styles.replaceWithCustom} onPress={onReplacePress}>
-      <Text style={styles.replaceWithCustomText}>今天背自己的内容</Text>
-    </TouchableOpacity>
-  )
-}
-
-interface SpeakButtonProps {
-  onSpeakPress: () => void
-}
-const SpeakButton = ({ onSpeakPress }: SpeakButtonProps) => {
-  return (
-    <TouchableOpacity style={styles.speakButton} onPress={onSpeakPress}>
-      <Feather name="volume-2" size={24} color="#ddd" />
-    </TouchableOpacity>
-  )
-}
+import ReciteOptions from "./ReciteOptions"
 
 interface ReciteProgressProps {}
 function ReciteProgress({}: ReciteProgressProps) {
@@ -217,7 +191,6 @@ interface ReciteProps {
 }
 export default function Recite({ date }: ReciteProps) {
   const [isReciting, setIsReciting] = useState(false)
-  const [AddItemVisible, setAddItemVisible] = useState(false)
   const dispatch = useDispatch()
   const progressArr = useSelector(selectProgress)
   const customItems = useSelector(selectCustomItems)
@@ -266,22 +239,6 @@ export default function Recite({ date }: ReciteProps) {
     )
   }
 
-  const handleAddItem = (item: DataItem) => {
-    dispatch(addItem(item))
-    setAddItemVisible(false)
-  }
-  const handleSpeakButtonPress = async () => {
-    Speech.speak(value, {
-      language: "en-US",
-      voice: 'com.apple.ttsbundle.Samantha-compact',
-    })
-  }
-  useEffect(() => {
-    return () => {
-      Speech.stop()
-    }
-  }, [])
-
   const isCompleted =
     progressItemsWithDuration.length === Config.todayTotalTimes
 
@@ -307,22 +264,8 @@ export default function Recite({ date }: ReciteProps) {
       {/* Value */}
       <ReciteValues value={value} isReciting={isReciting} />
 
-      <ReplaceWithCustom
-        onReplacePress={() => {
-          setAddItemVisible(true)
-        }}
-      />
-      <SpeakButton onSpeakPress={handleSpeakButtonPress} />
-
-      <AddItemModal
-        visible={AddItemVisible}
-        onDismiss={() => {
-          setAddItemVisible(false)
-        }}
-        onAdd={(item) => {
-          handleAddItem(item)
-        }}
-      />
+      {/* Options */}
+      <ReciteOptions value={value}/>
 
       {/* Actions */}
       <ReciteActions
@@ -337,27 +280,7 @@ export default function Recite({ date }: ReciteProps) {
 }
 
 const styles = StyleSheet.create({
-  speakButton: {
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  replaceWithCustom: {
-    marginTop: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  replaceWithCustomText: {
-    fontSize: 14,
-    color: Colors.light.lightText,
-    textDecorationLine: "underline",
-  },
+
   wordHide: {
     color: "rgba(0,0,0,0.06)",
   },
