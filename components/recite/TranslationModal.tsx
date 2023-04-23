@@ -28,13 +28,19 @@ const TranslationModal = ({
     >
       <View style={styles.modalContainer} onTouchEnd={handleEmptyClick}>
         <View style={styles.modal}>
+          {/* title */}
+          <View style={styles.modalTitle}>
+            <Text style={styles.modalTitleText}>
+              Translation:
+            </Text>
+          </View>
           <View style={styles.modalBody}>
             <View style={styles.modalBodyItem}>
               <Text style={styles.modalBodyItemText}>{translation}</Text>
             </View>
           </View>
           <View style={styles.closeTip}>
-            <Text style={styles.closeTipText}>点击空白处关闭</Text>
+            {/* <Text style={styles.closeTipText}>点击空白处关闭</Text> */}
           </View>
         </View>
       </View>
@@ -43,6 +49,14 @@ const TranslationModal = ({
 }
 
 const styles = StyleSheet.create({
+  modalTitle: {
+    marginBottom: 4,
+  },
+  modalTitleText: {
+    fontSize: 14,
+    lineHeight: 28,
+    color: Colors.light.valueColor,
+  },
   closeTip: {
     alignItems: "center",
   },
