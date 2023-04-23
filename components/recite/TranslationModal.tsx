@@ -39,9 +39,6 @@ const TranslationModal = ({
               <Text style={styles.modalBodyItemText}>{translation}</Text>
             </View>
           </View>
-          <View style={styles.closeTip}>
-            {/* <Text style={styles.closeTipText}>点击空白处关闭</Text> */}
-          </View>
         </View>
       </View>
     </Modal>
@@ -56,12 +53,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 28,
     color: Colors.light.valueColor,
-  },
-  closeTip: {
-    alignItems: "center",
-  },
-  closeTipText: {
-    color: "#aaa",
   },
   modalContainer: {
     flex: 1,
