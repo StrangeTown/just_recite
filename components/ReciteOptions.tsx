@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
 import { DataItem } from "../types"
 import { addItem } from "../redux/customSlice"
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useEffect, useState } from "react"
 import Colors from "../constants/Colors"
 import { Feather } from "@expo/vector-icons"
@@ -9,6 +9,7 @@ import * as Speech from "expo-speech"
 import AddItemModal from "./recite/AddItemModal"
 import TranslationModal from "./recite/TranslationModal"
 import get from "lodash.get"
+import KeyPointsModal from "./recite/KeyPointsModal"
 
 const iconSize = 20
 interface ReciteOptionsProps {
@@ -17,8 +18,11 @@ interface ReciteOptionsProps {
 const ReciteOptions = ({ item }: ReciteOptionsProps) => {
   const value = get(item, "value", "")
   const zh = get(item, "zh", "")
+  const keyPoints = get(item, "keyPoints", [])
+
   const [AddItemVisible, setAddItemVisible] = useState(false)
   const [TranslationModalVisible, setTranslationModalVisible] = useState(false)
+  const [KeyPointsVisible, setKeyPointsVisible] = useState(false)
   const dispatch = useDispatch()
 
   const handleAddItem = (item: DataItem) => {
@@ -37,13 +41,28 @@ const ReciteOptions = ({ item }: ReciteOptionsProps) => {
     }
   }, [])
 
+  const handleTranslationButtonPress = () => {
+    if (!zh) {
+      Alert.alert("当前内容无翻译")
+      return
+    }
+    setTranslationModalVisible(true)
+  }
+  const handleKeyPointsButtonPress = () => {
+    if (!keyPoints.length) {
+      Alert.alert("当前内容无关键点")
+      return
+    }
+    setKeyPointsVisible(true)
+  }
+
   return (
     <View style={styles.options}>
       {/* Translation */}
       <TouchableOpacity
         style={styles.option}
         onPress={() => {
-          setTranslationModalVisible(true)
+          handleTranslationButtonPress()
         }}
       >
         <Feather name="globe" size={iconSize} color="#ddd" />
@@ -53,7 +72,7 @@ const ReciteOptions = ({ item }: ReciteOptionsProps) => {
       <TouchableOpacity
         style={styles.option}
         onPress={() => {
-          console.log("Key Points")
+          handleKeyPointsButtonPress()
         }}
       >
         <Feather name="check-circle" size={iconSize} color="#ddd" />
@@ -90,6 +109,13 @@ const ReciteOptions = ({ item }: ReciteOptionsProps) => {
         visible={TranslationModalVisible}
         translation={zh}
         setVisible={setTranslationModalVisible}
+      />
+
+      {/* KeyPointsModal */}
+      <KeyPointsModal
+        visible={KeyPointsVisible}
+        keyPoints={keyPoints}
+        setVisible={setKeyPointsVisible}
       />
     </View>
   )

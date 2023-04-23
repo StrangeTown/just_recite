@@ -1,20 +1,21 @@
+// display some import part named as keypoints of a pargraph
+
 import React from "react"
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { Modal, StyleSheet, Text, View } from "react-native"
 import Colors from "../../constants/Colors"
 
-interface TranslationModalProps {
+interface KeyPointsModalProps {
   visible: boolean
   setVisible: (visible: boolean) => void
-  translation?: string
+  keyPoints: string[]
 }
-
-const TranslationModal = ({
+const KeyPointsModal = ({
   visible,
   setVisible,
-  translation,
-}: TranslationModalProps) => {
+  keyPoints,
+}: KeyPointsModalProps) => {
 
-  if (!translation) {
+  if (!keyPoints) {
     return null
   }
 
@@ -34,14 +35,16 @@ const TranslationModal = ({
         <View style={styles.modal}>
           {/* title */}
           <View style={styles.modalTitle}>
-            <Text style={styles.modalTitleText}>
-              Translation:
-            </Text>
+            <Text style={styles.modalTitleText}>Key Points:</Text>
           </View>
           <View style={styles.modalBody}>
-            <View style={styles.modalBodyItem}>
-              <Text style={styles.modalBodyItemText}>{translation}</Text>
-            </View>
+            {keyPoints.map((keyPoint, index) => {
+              return (
+                <View style={styles.modalBodyItem} key={index}>
+                  <Text style={styles.modalBodyItemText}>{keyPoint}</Text>
+                </View>
+              )
+            })}
           </View>
         </View>
       </View>
@@ -74,16 +77,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   modalBodyItem: {
-    paddingHorizontal: 10,
-    paddingVertical: 20,
+    marginBottom: 20,
     backgroundColor: "#f2f4f2",
-    borderRadius: 10,
+    padding: 10,
   },
   modalBodyItemText: {
-    fontSize: 16,
     lineHeight: 22,
+    fontSize: 16,
     color: Colors.light.valueColor,
   },
 })
 
-export default TranslationModal
+export default KeyPointsModal
