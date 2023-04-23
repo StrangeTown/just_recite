@@ -7,13 +7,18 @@ import Colors from "../constants/Colors"
 import { Feather } from "@expo/vector-icons"
 import * as Speech from "expo-speech"
 import AddItemModal from "./recite/AddItemModal"
+import TranslationModal from "./recite/TranslationModal"
+import get from "lodash.get"
 
 const iconSize = 20
 interface ReciteOptionsProps {
-  value: string
+  item?: DataItem
 }
-const ReciteOptions = ({ value }: ReciteOptionsProps) => {
+const ReciteOptions = ({ item }: ReciteOptionsProps) => {
+  const value = get(item, "value", "")
+  const zh = get(item, "zh", "")
   const [AddItemVisible, setAddItemVisible] = useState(false)
+  const [TranslationModalVisible, setTranslationModalVisible] = useState(false)
   const dispatch = useDispatch()
 
   const handleAddItem = (item: DataItem) => {
@@ -38,7 +43,7 @@ const ReciteOptions = ({ value }: ReciteOptionsProps) => {
       <TouchableOpacity
         style={styles.option}
         onPress={() => {
-          console.log("Translation")
+          setTranslationModalVisible(true)
         }}
       >
         <Feather name="globe" size={iconSize} color="#ddd" />
@@ -78,6 +83,13 @@ const ReciteOptions = ({ value }: ReciteOptionsProps) => {
         onAdd={(item) => {
           handleAddItem(item)
         }}
+      />
+
+      {/* TranslationModal */}
+      <TranslationModal
+        visible={TranslationModalVisible}
+        translation={zh}
+        setVisible={setTranslationModalVisible}
       />
     </View>
   )

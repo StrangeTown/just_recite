@@ -53,7 +53,7 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
                 style={styles.modalBodyItemInput}
                 onChangeText={setValue}
                 value={value}
-                placeholder="粘贴在此处"
+                placeholder="将要背诵的内容粘贴在此处"
                 numberOfLines={5}
                 multiline
               />

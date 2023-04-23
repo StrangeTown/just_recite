@@ -265,7 +265,7 @@ export default function Recite({ date }: ReciteProps) {
       <ReciteValues value={value} isReciting={isReciting} />
 
       {/* Options */}
-      <ReciteOptions value={value}/>
+      <ReciteOptions item={todayData} />
 
       {/* Actions */}
       <ReciteActions
