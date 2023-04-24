@@ -1,11 +1,6 @@
-import {
-  Linking,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native"
+import { Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import Colors from "../constants/Colors"
+import * as Sharing from "expo-sharing"
 
 const settingsList = [
   {
@@ -37,18 +32,26 @@ const settingsList = [
     label: "评分",
   },
 ]
+const itunesItemId = 6446614143
 // Settings Page
 export default function SettingsScreen() {
   const showRate = () => {
-    const itunesItemId = 6446614143
     Linking.openURL(
       `itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}?action=write-review`
+    )
+  }
+  const showShare = async () => {
+    await Sharing.shareAsync(
+      `https://apps.apple.com/cn/app/%E5%8D%8E%E4%B8%BA%E5%8D%8E%E8%AF%AD%E5%AD%A6%E4%B9%A0%E5%AE%A4/id${itunesItemId}`
     )
   }
   const handleSettingsItemPress = (value: string) => {
     switch (value) {
       case "rate":
         showRate()
+        break
+      case "share":
+        showShare()
         break
       default:
         break
