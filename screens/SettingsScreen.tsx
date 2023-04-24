@@ -35,6 +35,12 @@ const settingsList = [
 const itunesItemId = 6446614143
 // Settings Page
 export default function SettingsScreen() {
+  const openMail = () => {
+    const recipient = "yinxingdyx@163.com"
+    const subject = "关于小背英语的使用"
+
+    Linking.openURL(`mailto:${recipient}?subject=${subject}`)
+  }
   const showRate = () => {
     Linking.openURL(
       `itms-apps://itunes.apple.com/app/viewContentsUserReviews/id${itunesItemId}?action=write-review`
@@ -52,6 +58,9 @@ export default function SettingsScreen() {
         break
       case "share":
         showShare()
+        break
+      case "feedback":
+        openMail()
         break
       default:
         break
