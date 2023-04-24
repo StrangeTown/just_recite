@@ -26,7 +26,7 @@ import {
   RootTabScreenProps,
 } from "../types"
 import LinkingConfiguration from "./LinkingConfiguration"
-import Settings from "../screens/Settings"
+import SettingsScreen from "../screens/SettingsScreen"
 
 export default function Navigation({
   colorScheme,
@@ -64,9 +64,10 @@ function RootNavigator() {
       />
       <Stack.Screen
         name="Settings"
-        component={Settings}
+        component={SettingsScreen}
         options={{ 
           title: "Settings",
+          headerTintColor: Colors.light.valueColor,
        }}
       />
 
