@@ -1,6 +1,8 @@
 import { Linking, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import Colors from "../constants/Colors"
 import * as Sharing from "expo-sharing"
+import { useState } from "react"
+import AboutModal from "../components/settings/AboutModal"
 
 const settingsList = [
   {
@@ -35,6 +37,7 @@ const settingsList = [
 const itunesItemId = 6446614143
 // Settings Page
 export default function SettingsScreen() {
+  const [aboutModalVisible, setAboutModalVisible] = useState(false)
   const openMail = () => {
     const recipient = "yinxingdyx@163.com"
     const subject = "关于小背英语的使用"
@@ -62,6 +65,9 @@ export default function SettingsScreen() {
       case "feedback":
         openMail()
         break
+      case "about":
+        setAboutModalVisible(true)
+        break
       default:
         break
     }
@@ -79,6 +85,12 @@ export default function SettingsScreen() {
           <Text style={styles.settingsItemText}>{item.label}</Text>
         </TouchableOpacity>
       ))}
+      <AboutModal
+        visible={aboutModalVisible}
+        onDismiss={() => {
+          setAboutModalVisible(false)
+        }}
+      />
     </View>
   )
 }
