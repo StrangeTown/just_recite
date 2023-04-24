@@ -11,6 +11,7 @@ import { useFonts } from "expo-font"
 import { selectCustomItems } from "../redux/customSlice"
 import Colors from "../constants/Colors"
 import ReciteOptions from "./ReciteOptions"
+import { useNavigation } from "@react-navigation/native"
 
 interface ReciteProgressProps {}
 function ReciteProgress({}: ReciteProgressProps) {
@@ -194,6 +195,7 @@ export default function Recite({ date }: ReciteProps) {
   const dispatch = useDispatch()
   const progressArr = useSelector(selectProgress)
   const customItems = useSelector(selectCustomItems)
+  const navigation = useNavigation()
 
   const progressItemsWithDuration = progressArr.filter(
     (item) => item.duration !== 0
@@ -255,6 +257,16 @@ export default function Recite({ date }: ReciteProps) {
 
   return (
     <View style={styles.container}>
+      {/* Settings Button */}
+      <TouchableOpacity
+        style={styles.settings}
+        onPress={() => {
+          navigation.navigate("Settings")
+        }}
+      >
+        <Feather name="settings" size={20} color="#ddd" />
+      </TouchableOpacity>
+
       {/* Date */}
       <DateString isCompleted={isCompleted} />
 
@@ -280,7 +292,11 @@ export default function Recite({ date }: ReciteProps) {
 }
 
 const styles = StyleSheet.create({
-
+  settings: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+  },
   wordHide: {
     color: "rgba(0,0,0,0.06)",
   },

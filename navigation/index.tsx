@@ -26,6 +26,7 @@ import {
   RootTabScreenProps,
 } from "../types"
 import LinkingConfiguration from "./LinkingConfiguration"
+import Settings from "../screens/Settings"
 
 export default function Navigation({
   colorScheme,
@@ -61,6 +62,14 @@ function RootNavigator() {
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
       />
+      <Stack.Screen
+        name="Settings"
+        component={Settings}
+        options={{ 
+          title: "Settings",
+       }}
+      />
+
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
