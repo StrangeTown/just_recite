@@ -55,7 +55,7 @@ export default function TypeModal({ visible, onDismiss }: TypeModalProps) {
       <View style={styles.modalContainer}>
         <View style={styles.modal}>
           <View style={styles.modalBody}>
-            {types.map((item) => {
+            {types.map((item, index) => {
               return (
                 <TouchableOpacity
                   style={styles.modalBodyItem}
@@ -64,9 +64,18 @@ export default function TypeModal({ visible, onDismiss }: TypeModalProps) {
                     handleSelect(item.type)
                   }}
                 >
-                  <Text style={styles.modalBodyItemText}>{item.label}</Text>
-                  {selectedContentType === item.type && (
-                    <Text style={styles.modalBodyItemTextSelected}>已选</Text>
+                  <Text
+                    style={[
+                      styles.modalBodyItemText,
+                      selectedContentType === item.type &&
+                        styles.modalBodyItemTextSelected,
+                    ]}
+                  >
+                    {item.label}
+                  </Text>
+                  {/* Divider */}
+                  {index !== types.length - 1 && (
+                    <View style={styles.modalBodyItemDivider} />
                   )}
                 </TouchableOpacity>
               )
@@ -92,25 +101,27 @@ export default function TypeModal({ visible, onDismiss }: TypeModalProps) {
 }
 
 const styles = StyleSheet.create({
+  modalBodyItemDivider: {
+    height: 1,
+    backgroundColor: "#eee",
+    width: 10,
+    position: "absolute",
+    bottom: 0,
+  },
   modalFooterButton: {
     padding: 10,
   },
   modalBodyItem: {
-    marginBottom: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    height: 44,
+    justifyContent: "center",
     alignItems: "center",
-    borderBottomColor: "#eee",
-    borderBottomWidth: 1,
-    paddingBottom: 20,
   },
   modalBodyItemText: {
     fontSize: 14,
     color: Colors.light.valueColor,
   },
   modalBodyItemTextSelected: {
-    fontSize: 14,
-    color: Colors.light.valueColor,
+    color: "#248bcc",
   },
   modalContainer: {
     flex: 1,
@@ -125,7 +136,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   modalBody: {
-    marginBottom: 20,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: "#ddd",
   },
   modalFooter: {
     flexDirection: "row",
