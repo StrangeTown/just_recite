@@ -1,7 +1,16 @@
 // About modal
 
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import {
+  Image,
+  Linking,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native"
 import Colors from "../../constants/Colors"
+import { Feather } from "@expo/vector-icons"
 
 interface AboutModalProps {
   visible: boolean
@@ -18,26 +27,54 @@ export default function AboutModal({ visible, onDismiss }: AboutModalProps) {
 
   return (
     <Modal
-      animationType="fade"
-      transparent={true}
+      animationType="slide"
       visible={visible}
       onRequestClose={toggleModal}
-      presentationStyle="fullScreen"
+      presentationStyle="pageSheet"
     >
       <View style={styles.modalContainer}>
         <View style={styles.modal}>
           <View style={styles.modalBody}>
-            <Text>小背英语</Text>
-            <Text>版本：1.0.0</Text>
-            <Text>作者：yinxingdyx</Text>
-            <Text>邮箱：yinxingdyx@163.com</Text>
+            {/* icon */}
+            <View style={styles.modalBodyItemIconWrap}>
+              <Image
+                style={styles.modalBodyItemIcon}
+                source={require("../../assets/images/icon.png")}
+              />
+            </View>
+
+            {/* version */}
+            <View style={styles.modalBodyItem}>
+              <Text style={styles.modalBodyItemText}>版本号：v1.0.2</Text>
+            </View>
+
+            {/* author */}
+            <View style={styles.modalBodyItem}>
+              <Text style={styles.modalBodyItemText}>作者：尹星</Text>
+            </View>
+
+            {/* email */}
+            <View style={styles.modalBodyItem}>
+              <Text style={styles.modalBodyItemText}>
+                邮箱：
+                <Text
+                  style={styles.modalBodyItemEmail}
+                  onPress={() => {
+                    Linking.openURL("mailto:yinxingdyx@163.com")
+                  }}
+                >
+                  yinxingdyx@163.com
+                </Text>
+              </Text>
+            </View>
           </View>
           <View style={styles.modalFooter}>
             <TouchableOpacity
               style={styles.modalFooterButton}
               onPress={toggleModal}
             >
-              <Text style={styles.modalFooterButtonText}>确定</Text>
+              {/* down icon */}
+              <Feather name="chevron-down" size={24} color={Colors.light.valueColor} />
             </TouchableOpacity>
           </View>
         </View>
@@ -54,26 +91,48 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   modal: {
+    flex: 1,
     width: "80%",
     backgroundColor: "#fff",
     borderRadius: 10,
-    padding: 20,
+    paddingTop: 100,
+    paddingBottom: 100,
+    justifyContent: "space-between",
   },
   modalBody: {
     marginBottom: 20,
   },
+  modalBodyItem: {
+    alignItems: "center",
+    marginBottom: 20,
+    borderBottomColor: '#eee',
+    borderBottomWidth: 1,
+    paddingBottom: 20,
+  },
+  modalBodyItemText: {
+    alignSelf: "flex-start",
+    color: Colors.light.valueColor,
+  },
+  modalBodyItemIconWrap: {
+    alignItems: "center",
+    marginBottom: 40,
+  },
+  modalBodyItemIcon: {
+    width: 80,
+    height: 80,
+    borderRadius: 5,
+  },
+  modalBodyItemEmail: {
+    color: "#6c94cd",
+  },
   modalFooter: {
     flexDirection: "row",
-    justifyContent: "flex-end",
     alignItems: "center",
+    justifyContent: "center",
   },
   modalFooterButton: {
     marginLeft: 20,
-    backgroundColor: Colors.light.primaryColor,
     borderRadius: 5,
     padding: 10,
-  },
-  modalFooterButtonText: {
-    color: "#fff",
   },
 })

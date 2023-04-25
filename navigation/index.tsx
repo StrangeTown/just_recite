@@ -68,6 +68,8 @@ function RootNavigator() {
         options={{ 
           title: "Settings",
           headerTintColor: Colors.light.valueColor,
+          headerBackVisible: true,
+          headerBackTitleVisible: false,
        }}
       />
 

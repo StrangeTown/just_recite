@@ -3,6 +3,7 @@ import Colors from "../constants/Colors"
 import * as Sharing from "expo-sharing"
 import { useState } from "react"
 import AboutModal from "../components/settings/AboutModal"
+import { Feather } from "@expo/vector-icons"
 
 const settingsList = [
   {
@@ -83,6 +84,15 @@ export default function SettingsScreen() {
           style={styles.settingsItem}
         >
           <Text style={styles.settingsItemText}>{item.label}</Text>
+
+          <View style={styles.rightIconContainer}>
+            <Feather
+              name="chevron-right"
+              size={12}
+              color={Colors.light.valueColor}
+              style={styles.rightIcon}
+            />
+          </View>
         </TouchableOpacity>
       ))}
       <AboutModal
@@ -96,20 +106,32 @@ export default function SettingsScreen() {
 }
 
 const styles = StyleSheet.create({
+  rightIcon: {
+    marginLeft: 1,
+  },
+  rightIconContainer: {
+    width: 20,
+    height: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 100,
+    backgroundColor: '#f2f4f2',
+  },
   settingsItem: {
     width: "80%",
     height: 50,
     backgroundColor: "#fff",
     borderRadius: 6,
     flexDirection: "row",
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
     alignItems: "center",
-    paddingLeft: 20,
+    paddingHorizontal: 20,
     marginBottom: 10,
   },
   settingsItemText: {
     fontSize: 14,
     color: Colors.light.valueColor,
+    fontWeight: "500",
   },
   container: {
     paddingTop: 30,
