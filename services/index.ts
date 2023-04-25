@@ -5,6 +5,7 @@ import store, { RootState } from "../redux/store"
 import { setDate, setProgress, setReviewCompleted } from "../redux/todaySlice"
 import persist from "../utils/persist"
 import { setItems } from "../redux/customSlice"
+import { setContentFont, setContentType } from "../redux/settingsSlice"
 
 const initToday = (state: any) => {
   const todayProgress = get(state, "today.progress", [])
@@ -40,12 +41,20 @@ const initCustom = (state: any) => {
   store.dispatch(setItems(customItems))
 }
 
+const initSettings = (state: any) => {
+  const settingsType = get(state, "settings.type", "en")
+  const contentFont = get(state, "settings.contentFont", Config.defaultContentFont)
+  store.dispatch(setContentType(settingsType))
+  store.dispatch(setContentFont(contentFont))
+}
+
 const initStateFromLocalStorage = async () => {
   const state = await persist.getStoredState()
   if (state) {
     initToday(state)
     initReview(state)
     initCustom(state)
+    initSettings(state)
   }
 }
 

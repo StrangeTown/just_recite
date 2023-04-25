@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
+import persist from "../utils/persist"
 import todayReducer from '../redux/todaySlice'
 import reviewSlice from "./reviewSlice";
 import customSlice from "./customSlice";
-import persist from "../utils/persist"
+import settingsSlice from "./settingsSlice";
 
 const store = configureStore({
   reducer: {
+    settings: settingsSlice,
     custom: customSlice,
     today: todayReducer,
     review: reviewSlice

@@ -35,9 +35,11 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
   NativeStackScreenProps<RootStackParamList>
 >;
 
+export type ContentTypes = 'en' | 'zh' | 'jp';
 export type DataItem = {
   date: string;
   value: string;
   zh?: string;
   keyPoints?: string[];
+  type?: ContentTypes;
 };

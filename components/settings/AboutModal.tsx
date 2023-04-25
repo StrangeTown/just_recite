@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
   modalBodyItemText: {
     alignSelf: "flex-start",
     color: Colors.light.valueColor,
+    fontSize: 14,
   },
   modalBodyItemIconWrap: {
     alignItems: "center",
@@ -131,8 +132,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   modalFooterButton: {
-    marginLeft: 20,
-    borderRadius: 5,
     padding: 10,
   },
 })

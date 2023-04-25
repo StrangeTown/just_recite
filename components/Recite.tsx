@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import data from "../data/index"
+import { getStrings } from "../data/index"
 import get from "lodash.get"
 import { useState } from "react"
 import { Feather } from "@expo/vector-icons"
@@ -12,6 +12,8 @@ import { selectCustomItems } from "../redux/customSlice"
 import Colors from "../constants/Colors"
 import ReciteOptions from "./ReciteOptions"
 import { useNavigation } from "@react-navigation/native"
+import { selectContentFont, selectContentType } from "../redux/settingsSlice"
+import { contentFontNames } from "../constants/Fonts"
 
 interface ReciteProgressProps {}
 function ReciteProgress({}: ReciteProgressProps) {
@@ -149,8 +151,9 @@ function DateString({ isCompleted }: DateStringProps) {
 interface ReciteValuesProps {
   value: string
   isReciting: boolean
+  fontFamily?: string
 }
-const ReciteValues = ({ value, isReciting }: ReciteValuesProps) => {
+const ReciteValues = ({ value, isReciting, fontFamily }: ReciteValuesProps) => {
   const words = value.split(" ")
 
   // if is reciting, only show the first word every sentence
@@ -177,7 +180,13 @@ const ReciteValues = ({ value, isReciting }: ReciteValuesProps) => {
         return (
           <Text
             key={index}
-            style={[styles.word, visible ? {} : styles.wordHide]}
+            style={[
+              {
+                ...styles.word,
+                fontFamily,
+              },
+              visible ? {} : styles.wordHide,
+            ]}
           >
             {word}
           </Text>
@@ -195,6 +204,8 @@ export default function Recite({ date }: ReciteProps) {
   const dispatch = useDispatch()
   const progressArr = useSelector(selectProgress)
   const customItems = useSelector(selectCustomItems)
+  const contentType = useSelector(selectContentType)
+  const contentFont = useSelector(selectContentFont)
   const navigation = useNavigation()
 
   const progressItemsWithDuration = progressArr.filter(
@@ -205,7 +216,9 @@ export default function Recite({ date }: ReciteProps) {
   // use custom items first if available
   let todayData = customItems.find((item) => item.date === date)
   if (!todayData) {
-    todayData = data.find((item) => item.date === date)
+    // todayData = data.find((item) => item.date === date)
+    const strings = getStrings({ type: contentType })
+    todayData = strings.find((item) => item.date === date)
   }
 
   const value = get(todayData, "value", "No data for this date")
@@ -249,6 +262,12 @@ export default function Recite({ date }: ReciteProps) {
     "Ubuntu Regular": require("../assets/fonts/Ubuntu/Ubuntu-Regular.ttf"),
     "Ubuntu Light Italic": require("../assets/fonts/Ubuntu/Ubuntu-LightItalic.ttf"),
     "Ubuntu Light": require("../assets/fonts/Ubuntu/Ubuntu-Light.ttf"),
+    [contentFontNames.Caveat]: require("../assets/fonts/Caveat/static/Caveat-Regular.ttf"),
+    [contentFontNames.DancingScript]: require("../assets/fonts/Dancing_Script/static/DancingScript-Regular.ttf"),
+    [contentFontNames.PlayfairDisplay]: require("../assets/fonts/Playfair_Display/static/PlayfairDisplay-Regular.ttf"),
+    [contentFontNames.Roboto]: require("../assets/fonts/Roboto/Roboto-Regular.ttf"),
+    [contentFontNames.Satisfy]: require("../assets/fonts/Satisfy/Satisfy-Regular.ttf"),
+    [contentFontNames.Ysabeau]: require("../assets/fonts/Ysabeau/static/Ysabeau-Regular.ttf"),
   })
 
   if (!fontsLoaded) {
@@ -274,7 +293,11 @@ export default function Recite({ date }: ReciteProps) {
       <ReciteProgress />
 
       {/* Value */}
-      <ReciteValues value={value} isReciting={isReciting} />
+      <ReciteValues
+        value={value}
+        isReciting={isReciting}
+        fontFamily={contentFont}
+      />
 
       {/* Options */}
       <ReciteOptions item={todayData} />
@@ -385,5 +408,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: 20,
+    width: "100%",
   },
 })

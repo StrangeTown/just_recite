@@ -4,19 +4,21 @@ import * as Sharing from "expo-sharing"
 import { useState } from "react"
 import AboutModal from "../components/settings/AboutModal"
 import { Feather } from "@expo/vector-icons"
+import TypeModal from "../components/settings/TypeModal"
+import ContentFontModal from "../components/settings/ContentFontModal"
 
 const settingsList = [
   {
     value: "font",
-    label: "更换内容字体",
+    label: "背诵内容字体",
   },
+  // {
+  //   value: "theme",
+  //   label: "更换主题",
+  // },
   {
-    value: "theme",
-    label: "更换主题",
-  },
-  {
-    value: "language",
-    label: "更换语言",
+    value: 'type',
+    label: "背诵内容类型",
   },
   {
     value: "about",
@@ -39,6 +41,9 @@ const itunesItemId = 6446614143
 // Settings Page
 export default function SettingsScreen() {
   const [aboutModalVisible, setAboutModalVisible] = useState(false)
+  const [typeModalVisible, setTypeModalVisible] = useState(false)
+  const [contentFontModalVisible, setContentFontModalVisible] = useState(false)
+
   const openMail = () => {
     const recipient = "yinxingdyx@163.com"
     const subject = "关于小背英语的使用"
@@ -69,6 +74,12 @@ export default function SettingsScreen() {
       case "about":
         setAboutModalVisible(true)
         break
+      case "type":
+        setTypeModalVisible(true)
+        break
+      case "font":
+        setContentFontModalVisible(true)
+        break
       default:
         break
     }
@@ -95,10 +106,28 @@ export default function SettingsScreen() {
           </View>
         </TouchableOpacity>
       ))}
+
+      {/* About Modal */}
       <AboutModal
         visible={aboutModalVisible}
         onDismiss={() => {
           setAboutModalVisible(false)
+        }}
+      />
+
+      {/* Type Modal */}
+      <TypeModal
+        visible={typeModalVisible}
+        onDismiss={() => {
+          setTypeModalVisible(false)
+        }}
+      />
+
+      {/* Content Font Modal */}
+      <ContentFontModal
+        visible={contentFontModalVisible}
+        onDismiss={() => {
+          setContentFontModalVisible(false)
         }}
       />
     </View>
