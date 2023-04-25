@@ -4,9 +4,10 @@ import React from "react"
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
 import { selectContentFont, setContentFont } from "../../redux/settingsSlice"
-import { contentFonts } from "../../constants/Fonts"
+import { contentFontNames, contentFonts } from "../../constants/Fonts"
 import { Feather } from "@expo/vector-icons"
 import Colors from "../../constants/Colors"
+import { useFonts } from "expo-font"
 
 interface ContentFontModalProps {
   visible: boolean
@@ -30,6 +31,20 @@ export default function ContentFontModal({
     dispatch(setContentFont(font))
   }
 
+  const [fontsLoaded] = useFonts({
+    "Ubuntu Regular": require("../../assets/fonts/Ubuntu/Ubuntu-Regular.ttf"),
+    [contentFontNames.Caveat]: require("../../assets/fonts/Caveat/static/Caveat-Regular.ttf"),
+    [contentFontNames.DancingScript]: require("../../assets/fonts/Dancing_Script/static/DancingScript-Regular.ttf"),
+    [contentFontNames.PlayfairDisplay]: require("../../assets/fonts/Playfair_Display/static/PlayfairDisplay-Regular.ttf"),
+    [contentFontNames.Roboto]: require("../../assets/fonts/Roboto/Roboto-Regular.ttf"),
+    [contentFontNames.Satisfy]: require("../../assets/fonts/Satisfy/Satisfy-Regular.ttf"),
+    [contentFontNames.Ysabeau]: require("../../assets/fonts/Ysabeau/static/Ysabeau-Regular.ttf"),
+  })
+
+  if (!fontsLoaded) {
+    return null
+  }
+
   return (
     <Modal
       animationType="slide"
@@ -51,7 +66,10 @@ export default function ContentFontModal({
                 >
                   <Text
                     style={[
-                      styles.modalBodyItemText,
+                      {
+                        ...styles.modalBodyItemText,
+                        fontFamily: item,
+                      },
                       selectedContentFont === item &&
                         styles.modalBodyItemTextSelected,
                     ]}

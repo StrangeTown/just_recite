@@ -17,15 +17,15 @@ interface TypeItem {
 const types: TypeItem[] = [
   {
     type: "en",
-    label: "英语内容",
+    label: "英语内容（English）",
   },
   // {
   //   type: "zh",
-  //   label: "中文内容",
+  //   label: "中文内容（中文）",
   // },
   {
     type: "jp",
-    label: "日语内容",
+    label: "日语内容（日本語）",
   },
 ]
 
