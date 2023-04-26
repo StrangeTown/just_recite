@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import {
   Modal,
   StyleSheet,
@@ -23,14 +23,11 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
   const [value, setValue] = useState("")
 
   const handleAddPress = () => {
-    if (!value) {
-      return
-    }
-
     // date format: '2021-01-01'
     const item: DataItem = {
       date: new Date().toISOString().slice(0, 10),
-      value,
+      value: value,
+      isCustom: true,
     }
 
     onAdd(item)
@@ -115,10 +112,9 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.light.primaryColor,
     borderRadius: 5,
     padding: 10,
-    
   },
   modalFooterButtonText: {
-    color: '#fff',
+    color: "#fff",
   },
 })
 

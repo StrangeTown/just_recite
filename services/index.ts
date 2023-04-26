@@ -60,7 +60,7 @@ export const setDefaultFont = (type: ContentTypes) => {
   const defaultFonts: { [key in ContentTypes]: string } = {
     en: contentFontNames.Ubuntu,
     jp: contentFontNames.jpNotoSansJP,
-    zh: "default",
+    zh: contentFontNames.Ubuntu,
   }
   store.dispatch(setContentFont(defaultFonts[type]))
 }

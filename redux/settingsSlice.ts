@@ -3,6 +3,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "./store"
 import { ContentTypes } from "../types"
+import { contentFontNames } from "../constants/Fonts"
 
 interface SettingsState {
   type: ContentTypes,
@@ -11,7 +12,7 @@ interface SettingsState {
 
 const initialState: SettingsState = {
   type: "en",
-  contentFont: "default",
+  contentFont: contentFontNames.Ubuntu,
 }
 
 export const settingsSlice = createSlice({

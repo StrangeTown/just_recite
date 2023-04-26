@@ -1,15 +1,15 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { DataItem } from "../types"
 import { addItem } from "../redux/customSlice"
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native"
 import { useEffect, useState } from "react"
-import Colors from "../constants/Colors"
 import { Feather } from "@expo/vector-icons"
 import * as Speech from "expo-speech"
 import AddItemModal from "./recite/AddItemModal"
 import TranslationModal from "./recite/TranslationModal"
 import get from "lodash.get"
 import KeyPointsModal from "./recite/KeyPointsModal"
+import { selectContentType } from "../redux/settingsSlice"
 
 const iconSize = 20
 interface ReciteOptionsProps {
@@ -19,6 +19,8 @@ const ReciteOptions = ({ item }: ReciteOptionsProps) => {
   const value = get(item, "value", "")
   const zh = get(item, "zh", "")
   const keyPoints = get(item, "keyPoints", [])
+  const isCustom = get(item, "isCustom", false)
+  const contentType = useSelector(selectContentType)
 
   const [AddItemVisible, setAddItemVisible] = useState(false)
   const [TranslationModalVisible, setTranslationModalVisible] = useState(false)
@@ -30,8 +32,13 @@ const ReciteOptions = ({ item }: ReciteOptionsProps) => {
     setAddItemVisible(false)
   }
   const handleSpeakButtonPress = async () => {
+    const typeLanguageMap = {
+      en: "en-US",
+      zh: "zh-CN",
+      jp: "ja-JP",
+    }
     Speech.speak(value, {
-      language: "en-US",
+      language: typeLanguageMap[contentType],
       voice: "com.apple.ttsbundle.Samantha-compact",
     })
   }
@@ -48,35 +55,45 @@ const ReciteOptions = ({ item }: ReciteOptionsProps) => {
     }
     setTranslationModalVisible(true)
   }
+
+  const noKeyPoints = !keyPoints || !keyPoints.length
   const handleKeyPointsButtonPress = () => {
-    if (!keyPoints.length) {
+    if (noKeyPoints) {
       Alert.alert("当前内容无关键点")
       return
     }
     setKeyPointsVisible(true)
   }
 
+  const keyPointsButtonVisible = !isCustom && !noKeyPoints
+  const speakButtonVisible = !isCustom && !!value
+  const translationButtonVisible = !isCustom && !!zh
+
   return (
     <View style={styles.options}>
       {/* Translation */}
-      <TouchableOpacity
-        style={styles.option}
-        onPress={() => {
-          handleTranslationButtonPress()
-        }}
-      >
-        <Feather name="globe" size={iconSize} color="#ddd" />
-      </TouchableOpacity>
+      {translationButtonVisible && (
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => {
+            handleTranslationButtonPress()
+          }}
+        >
+          <Feather name="globe" size={iconSize} color="#ddd" />
+        </TouchableOpacity>
+      )}
 
       {/* Key Points */}
-      <TouchableOpacity
-        style={styles.option}
-        onPress={() => {
-          handleKeyPointsButtonPress()
-        }}
-      >
-        <Feather name="check-circle" size={iconSize} color="#ddd" />
-      </TouchableOpacity>
+      {keyPointsButtonVisible && (
+        <TouchableOpacity
+          style={styles.option}
+          onPress={() => {
+            handleKeyPointsButtonPress()
+          }}
+        >
+          <Feather name="check-circle" size={iconSize} color="#ddd" />
+        </TouchableOpacity>
+      )}
 
       {/* Custom */}
       <TouchableOpacity
@@ -89,9 +106,14 @@ const ReciteOptions = ({ item }: ReciteOptionsProps) => {
       </TouchableOpacity>
 
       {/* Speak */}
-      <TouchableOpacity style={styles.option} onPress={handleSpeakButtonPress}>
-        <Feather name="volume-2" size={iconSize} color="#ddd" />
-      </TouchableOpacity>
+      {speakButtonVisible && (
+        <TouchableOpacity
+          style={styles.option}
+          onPress={handleSpeakButtonPress}
+        >
+          <Feather name="volume-2" size={iconSize} color="#ddd" />
+        </TouchableOpacity>
+      )}
 
       {/* AddItemModal */}
       <AddItemModal

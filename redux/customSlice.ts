@@ -28,7 +28,12 @@ export const customSlice = createSlice({
         (item: DataItem) => item.date === action.payload.date
       )
       if (index !== -1) {
-        state.items[index] = action.payload
+        const value = action.payload.value
+        if (value === "") {
+          state.items.splice(index, 1)
+        } else {
+          state.items[index] = action.payload
+        }
       } else {
         state.items.push(action.payload)
       }

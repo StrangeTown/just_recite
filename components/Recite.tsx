@@ -7,13 +7,11 @@ import Config from "../constants/Config"
 import { useDispatch, useSelector } from "react-redux"
 import { selectProgress, updateProgress } from "../redux/todaySlice"
 import { addCompleted } from "../redux/reviewSlice"
-import { useFonts } from "expo-font"
 import { selectCustomItems } from "../redux/customSlice"
 import Colors from "../constants/Colors"
 import ReciteOptions from "./ReciteOptions"
 import { useNavigation } from "@react-navigation/native"
 import { selectContentFont, selectContentType } from "../redux/settingsSlice"
-import { contentFontNames } from "../constants/Fonts"
 
 interface ReciteProgressProps {}
 function ReciteProgress({}: ReciteProgressProps) {
@@ -214,12 +212,10 @@ export default function Recite({ date }: ReciteProps) {
   const prevActiveItemIndex = progressItemsWithDuration.length - 1
 
   // use custom items first if available
-  let todayData = customItems.find((item) => item.date === date)
-  if (!todayData) {
-    // todayData = data.find((item) => item.date === date)
-    const strings = getStrings({ type: contentType })
-    todayData = strings.find((item) => item.date === date)
-  }
+  const customedTodayData = customItems.find((item) => item.date === date)
+  const strings = getStrings({ type: contentType })
+  const databaseTodayData = strings.find((item) => item.date === date)
+  const todayData = customedTodayData || databaseTodayData
 
   const value = get(todayData, "value", "No data for this date")
 
@@ -256,23 +252,6 @@ export default function Recite({ date }: ReciteProps) {
 
   const isCompleted =
     progressItemsWithDuration.length === Config.todayTotalTimes
-
-  const [fontsLoaded] = useFonts({
-    "Ubuntu Medium": require("../assets/fonts/Ubuntu/Ubuntu-Medium.ttf"),
-    "Ubuntu Regular": require("../assets/fonts/Ubuntu/Ubuntu-Regular.ttf"),
-    "Ubuntu Light Italic": require("../assets/fonts/Ubuntu/Ubuntu-LightItalic.ttf"),
-    "Ubuntu Light": require("../assets/fonts/Ubuntu/Ubuntu-Light.ttf"),
-    [contentFontNames.Caveat]: require("../assets/fonts/Caveat/static/Caveat-Regular.ttf"),
-    [contentFontNames.DancingScript]: require("../assets/fonts/Dancing_Script/static/DancingScript-Regular.ttf"),
-    [contentFontNames.PlayfairDisplay]: require("../assets/fonts/Playfair_Display/static/PlayfairDisplay-Regular.ttf"),
-    [contentFontNames.Roboto]: require("../assets/fonts/Roboto/Roboto-Regular.ttf"),
-    [contentFontNames.Satisfy]: require("../assets/fonts/Satisfy/Satisfy-Regular.ttf"),
-    [contentFontNames.Ysabeau]: require("../assets/fonts/Ysabeau/static/Ysabeau-Regular.ttf"),
-  })
-
-  if (!fontsLoaded) {
-    return null
-  }
 
   return (
     <View style={styles.container}>

@@ -6,7 +6,6 @@ import {
   selectReviewCompleted,
 } from "../redux/todaySlice"
 import Colors from "../constants/Colors"
-import { useFonts } from "expo-font"
 
 interface ItemProps {
   date: string
@@ -61,17 +60,6 @@ const EmptyList = () => {
 const ReviewList = () => {
   const completed = useSelector(selectCompleted)
   const copy = [...completed]
-
-  const [fontsLoaded] = useFonts({
-    "Ubuntu Medium": require("../assets/fonts/Ubuntu/Ubuntu-Medium.ttf"),
-    "Ubuntu Regular": require("../assets/fonts/Ubuntu/Ubuntu-Regular.ttf"),
-    "Ubuntu Light Italic": require("../assets/fonts/Ubuntu/Ubuntu-LightItalic.ttf"),
-    "Ubuntu Light": require("../assets/fonts/Ubuntu/Ubuntu-Light.ttf"),
-  })
-
-  if (!fontsLoaded) {
-    return null
-  }
 
   // sort by date, latest first
   const sortedCompleted = copy.sort((a, b) => {

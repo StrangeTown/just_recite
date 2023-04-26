@@ -42,4 +42,5 @@ export type DataItem = {
   zh?: string;
   keyPoints?: string[];
   type?: ContentTypes;
+  isCustom?: boolean;
 };

@@ -8,11 +8,9 @@ import {
   setContentFont,
 } from "../../redux/settingsSlice"
 import {
-  contentFontNames,
   contentFonts,
   contentFontsJP,
 } from "../../constants/Fonts"
-import { useFonts } from "expo-font"
 import SettingsModal from "./SettingsModal"
 import SettingsOptions from "./SettingsOptions"
 
