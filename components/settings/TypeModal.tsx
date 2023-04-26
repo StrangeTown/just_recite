@@ -6,6 +6,7 @@ import { selectContentType, setContentType } from "../../redux/settingsSlice"
 import { Feather } from "@expo/vector-icons"
 import SettingsModal from "./SettingsModal"
 import SettingsOptions from "./SettingsOptions"
+import { setDefaultFont } from "../../services"
 
 interface TypeModalProps {
   visible: boolean
@@ -45,6 +46,7 @@ export default function TypeModal({ visible, onDismiss }: TypeModalProps) {
 
   const handleSelect = (type: ContentTypes) => {
     dispatch(setContentType(type))
+    setDefaultFont(type)
   }
 
   return (

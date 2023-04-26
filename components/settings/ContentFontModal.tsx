@@ -2,11 +2,34 @@
 
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { selectContentFont, setContentFont } from "../../redux/settingsSlice"
-import { contentFontNames, contentFonts } from "../../constants/Fonts"
+import {
+  selectContentFont,
+  selectContentType,
+  setContentFont,
+} from "../../redux/settingsSlice"
+import {
+  contentFontNames,
+  contentFonts,
+  contentFontsJP,
+} from "../../constants/Fonts"
 import { useFonts } from "expo-font"
 import SettingsModal from "./SettingsModal"
 import SettingsOptions from "./SettingsOptions"
+
+const typeMapFont = {
+  en: {
+    values: contentFonts,
+    label: "I love this world",
+  },
+  jp: {
+    values: contentFontsJP,
+    label: "私はこの世界が好きです",
+  },
+  zh: {
+    values: contentFonts,
+    label: "我爱这个世界",
+  },
+}
 
 interface ContentFontModalProps {
   visible: boolean
@@ -20,6 +43,7 @@ export default function ContentFontModal({
     return null
   }
   const selectedContentFont = useSelector(selectContentFont)
+  const selectedContentType = useSelector(selectContentType)
   const dispatch = useDispatch()
 
   const toggleModal = () => {
@@ -30,19 +54,16 @@ export default function ContentFontModal({
     dispatch(setContentFont(font))
   }
 
-  const [fontsLoaded] = useFonts({
-    "Ubuntu Regular": require("../../assets/fonts/Ubuntu/Ubuntu-Regular.ttf"),
-    [contentFontNames.Caveat]: require("../../assets/fonts/Caveat/static/Caveat-Regular.ttf"),
-    [contentFontNames.DancingScript]: require("../../assets/fonts/Dancing_Script/static/DancingScript-Regular.ttf"),
-    [contentFontNames.PlayfairDisplay]: require("../../assets/fonts/Playfair_Display/static/PlayfairDisplay-Regular.ttf"),
-    [contentFontNames.Roboto]: require("../../assets/fonts/Roboto/Roboto-Regular.ttf"),
-    [contentFontNames.Satisfy]: require("../../assets/fonts/Satisfy/Satisfy-Regular.ttf"),
-    [contentFontNames.Ysabeau]: require("../../assets/fonts/Ysabeau/static/Ysabeau-Regular.ttf"),
+  const font = typeMapFont[selectedContentType]
+  const options = font.values.map((f) => {
+    return {
+      label: font.label,
+      value: f,
+      textStyle: {
+        fontFamily: f,
+      },
+    }
   })
-
-  if (!fontsLoaded) {
-    return null
-  }
 
   return (
     <SettingsModal
@@ -50,15 +71,7 @@ export default function ContentFontModal({
       onDismiss={toggleModal}
       modalBodyContent={
         <SettingsOptions
-          options={contentFonts.map((font) => {
-            return {
-              label: font,
-              value: font,
-              textStyle: {
-                fontFamily: font,
-              },
-            }
-          })}
+          options={options}
           selectedValue={selectedContentFont}
           onSelect={handleSelect}
         />
@@ -66,4 +79,3 @@ export default function ContentFontModal({
     />
   )
 }
-

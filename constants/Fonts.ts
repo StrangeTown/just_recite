@@ -7,14 +7,25 @@ export const contentFontNames = {
   Roboto: 'Roboto Regular',
   Satisfy: 'Satisfy Regular',
   Ysabeau: 'Ysabeau Regular',
+  jpMPLUSRounded1c: 'jpMPLUSRounded1c Regular',
+  jpNotoSansJP: 'jpNotoSansJP Regular',
+  jpNotoSerifJP: 'jpNotoSerifJP Regular',
+  jpYujiSyuku: 'jpYujiSyuku Regular',
 }
 
 export const contentFonts: string[] = [
-  'Ubuntu Regular',
-  'Caveat Regular',
-  'Dancing Script Regular',
-  'Playfair Display Regular',
-  'Roboto Regular',
-  'Satisfy Regular',
-  'Ysabeau Regular',
+  contentFontNames.Ubuntu,
+  contentFontNames.Caveat,
+  contentFontNames.DancingScript,
+  contentFontNames.PlayfairDisplay,
+  contentFontNames.Roboto,
+  contentFontNames.Satisfy,
+  contentFontNames.Ysabeau,
+]
+
+export const contentFontsJP: string[] = [
+  contentFontNames.jpMPLUSRounded1c,
+  contentFontNames.jpNotoSansJP,
+  contentFontNames.jpNotoSerifJP,
+  contentFontNames.jpYujiSyuku,
 ]

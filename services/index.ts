@@ -6,6 +6,8 @@ import { setDate, setProgress, setReviewCompleted } from "../redux/todaySlice"
 import persist from "../utils/persist"
 import { setItems } from "../redux/customSlice"
 import { setContentFont, setContentType } from "../redux/settingsSlice"
+import { contentFontNames } from "../constants/Fonts"
+import { ContentTypes } from "../types"
 
 const initToday = (state: any) => {
   const todayProgress = get(state, "today.progress", [])
@@ -42,10 +44,25 @@ const initCustom = (state: any) => {
 }
 
 const initSettings = (state: any) => {
-  const settingsType = get(state, "settings.type", "en")
-  const contentFont = get(state, "settings.contentFont", Config.defaultContentFont)
-  store.dispatch(setContentType(settingsType))
-  store.dispatch(setContentFont(contentFont))
+  const contentType: ContentTypes = get(state, "settings.type", "en")
+  store.dispatch(setContentType(contentType))
+
+  const contentFont = get(state, "settings.contentFont")
+  if (!contentFont) {
+    setDefaultFont(contentType)
+    return
+  } else {
+    store.dispatch(setContentFont(contentFont))
+  }
+}
+
+export const setDefaultFont = (type: ContentTypes) => {
+  const defaultFonts: { [key in ContentTypes]: string } = {
+    en: contentFontNames.Ubuntu,
+    jp: contentFontNames.jpNotoSansJP,
+    zh: "default",
+  }
+  store.dispatch(setContentFont(defaultFonts[type]))
 }
 
 const initStateFromLocalStorage = async () => {
