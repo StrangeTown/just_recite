@@ -271,126 +271,353 @@ const strings: DataItem[] = [
     value:
       "You know, I was thinking about trying that new Italian restaurant that just opened up. I've heard their pasta is amazing.",
     zh: "你知道吗，我想去那家刚刚开业的意大利餐厅。我听说他们的意大利面很好吃。",
-    keyPoints: ['You know, ___', 'I was thinking about ___'],
+    keyPoints: ["You know, ___", "I was thinking about ___"],
   },
   {
     date: "2023-04-24",
     value:
       "I've been really into yoga lately. It's such a great way to relax and unwind after a long day.",
     zh: "我最近非常喜欢瑜伽。这是一个很好的放松和放松的方法，尤其是在一天结束后。",
-    keyPoints: ['I\'ve been really into ___', 'It\'s such a great way to ___'],
+    keyPoints: ["I've been really into ___", "It's such a great way to ___"],
   },
   {
     date: "2023-04-25",
     value:
       "I'm so excited for my trip to Hawaii next month. I can't wait to lay on the beach and soak up the sun.",
     zh: "我对下个月去夏威夷的旅行感到非常兴奋。我迫不及待地躺在海滩上，吸收阳光。",
-    keyPoints: ['I\'m so excited for ___', 'I can\'t wait to ___'],
+    keyPoints: ["I'm so excited for ___", "I can't wait to ___"],
   },
   {
     date: "2023-04-26",
     value:
       "I've been trying to learn how to play the guitar for years, but I just can't seem to get the hang of it.",
     zh: "我已经尝试学习吉他多年了，但我似乎无法掌握它。",
-    keyPoints: ['I\'ve been trying to ___', 'I just can\'t seem to ___'],
+    keyPoints: ["I've been trying to ___", "I just can't seem to ___"],
   },
   {
     date: "2023-04-27",
     value:
       "It's crazy how much technology has changed our lives. I can't imagine going back to a world without smartphones or social media.",
     zh: "技术如何改变了我们的生活是多么的疯狂。我无法想象回到没有智能手机或社交媒体的世界。",
-    keyPoints: ['It\'s crazy how much ___', 'I can\'t imagine going back to ___'],
+    keyPoints: ["It's crazy how much ___", "I can't imagine going back to ___"],
   },
   {
     date: "2023-04-28",
     value:
       "I'm really looking forward to the summer. There's nothing better than spending a lazy day at the beach with friends.",
     zh: "我非常期待夏天。没有什么比和朋友在海滩上度过一个懒散的日子更好了。",
-    keyPoints: ['I\'m really looking forward to ___', 'There\'s nothing better than ___'],
+    keyPoints: [
+      "I'm really looking forward to ___",
+      "There's nothing better than ___",
+    ],
   },
   {
     date: "2023-04-29",
     value:
       "I've been trying to eat healthier lately, but it's so hard to resist all the delicious junk food out there.",
     zh: "我最近一直在尝试健康饮食，但是抵制所有美味的垃圾食品是如此困难。",
-    keyPoints: ['I\'ve been trying to ___', 'It\'s so hard to resist ___'],
+    keyPoints: ["I've been trying to ___", "It's so hard to resist ___"],
   },
   {
     date: "2023-04-30",
     value:
       "I can't believe how quickly my kids are growing up. It feels like just yesterday they were babies, and now they're almost teenagers.",
     zh: "我无法相信我的孩子们长大得多么快。感觉就像昨天他们还是婴儿，现在他们几乎是青少年了。",
-    keyPoints: ['I can\'t believe how quickly ___', 'It feels like just yesterday ___'],
+    keyPoints: [
+      "I can't believe how quickly ___",
+      "It feels like just yesterday ___",
+    ],
   },
   {
     date: "2023-05-01",
     value:
       "I can't believe how fast this year is going by, it feels like we just celebrated New Year's yesterday!",
     zh: "我无法相信这一年过得有多快，感觉就像我们昨天刚刚庆祝新年一样！",
-    keyPoints: ['I can\'t believe how fast ___', 'It feels like ___'],
+    keyPoints: ["I can't believe how fast ___", "It feels like ___"],
   },
   {
     date: "2023-05-02",
     value:
       "I really need to start working out more, my body is not as young as it used to be and I'm starting to feel the effects of not taking care of myself.",
     zh: "我真的需要开始锻炼更多，我的身体不像以前那么年轻，我开始感受到不照顾自己的影响。",
-    keyPoints: ['I really need to start ___', 'I\'m starting to feel the effects of ___'],
+    keyPoints: [
+      "I really need to start ___",
+      "I'm starting to feel the effects of ___",
+    ],
   },
   {
     date: "2023-05-03",
     value:
       "I think it's important to take time for yourself every once in a while, whether that means going on a solo trip or just taking a day off to relax and recharge.",
     zh: "我认为每隔一段时间，你需要为自己花一点时间，无论是去旅行还是只是休息一天，都很重要。",
-    keyPoints: ['I think it\'s important to ___', 'Whether that means ___ or just ___'],
+    keyPoints: [
+      "I think it's important to ___",
+      "Whether that means ___ or just ___",
+    ],
   },
   {
     date: "2023-05-04",
     value:
       "I'm so excited for summer, there's nothing better than spending a day at the beach with friends and family.",
     zh: "我对夏天感到非常兴奋，没有什么比和朋友和家人在海滩上度过一天更好了。",
-    keyPoints: ['I\'m so excited for ___', 'There\'s nothing better than ___'],
+    keyPoints: ["I'm so excited for ___", "There's nothing better than ___"],
   },
   {
     date: "2023-05-05",
     value:
       "I wish I had more time to read, there are so many great books out there and I feel like I'm always falling behind on my reading list.",
     zh: "我希望有更多的时间阅读，有很多很棒的书，我感觉我总是落后于我的阅读清单。",
-    keyPoints: ['I wish I had more time to ___', 'I feel like I\'m always falling behind on ___'],
+    keyPoints: [
+      "I wish I had more time to ___",
+      "I feel like I'm always falling behind on ___",
+    ],
   },
   {
     date: "2023-05-06",
     value:
       "I can't wait to try out that new restaurant downtown, I've heard such great things about their food and atmosphere.",
     zh: "我迫不及待要尝试那家新开的餐厅，我听说他们的食物和氛围都很棒。",
-    keyPoints: ['I can\'t wait to ___', 'I\'ve heard such great things about ___'],
+    keyPoints: [
+      "I can't wait to ___",
+      "I've heard such great things about ___",
+    ],
   },
   {
     date: "2023-05-07",
     value:
       "I'm really enjoying my new job, it's challenging but also very rewarding and I feel like I'm learning so much every day.",
     zh: "我很享受我的新工作，它很具有挑战性，但也非常有回报，我感觉每天都在学习很多东西。",
-    keyPoints: ['I\'m really enjoying ___', 'It\'s challenging but also very rewarding and I feel like ___'],
+    keyPoints: [
+      "I'm really enjoying ___",
+      "It's challenging but also very rewarding and I feel like ___",
+    ],
   },
   {
     date: "2023-05-08",
     value:
       "I think it's important to stay positive and focus on the good things in life, even when things get tough.",
     zh: "我认为保持积极向上并专注于生活中的美好事物是很重要的，即使在困难时刻也是如此。",
-    keyPoints: ['I think it\'s important to ___', 'Even when ___'],
+    keyPoints: ["I think it's important to ___", "Even when ___"],
   },
   {
     date: "2023-05-09",
     value:
       "I'm so grateful for my family and friends, they always know how to make me laugh and bring me back up when I'm feeling down.",
     zh: "我对我的家人和朋友感到非常感激，他们总是知道如何让我笑起来，当我感到沮丧时，他们会让我回到正轨。",
-    keyPoints: ['I\'m so grateful for ___', 'They always know how to ___ and ___'],
+    keyPoints: [
+      "I'm so grateful for ___",
+      "They always know how to ___ and ___",
+    ],
   },
   {
     date: "2023-05-10",
     value:
       "I can't believe it's already May, time really does fly by when you're having fun!",
     zh: "我无法相信已经是五月了，当你玩得开心时，时间真的会飞快！",
-    keyPoints: ['I can\'t believe it\'s already ___', 'Time really does fly by when ___'],
+    keyPoints: [
+      "I can't believe it's already ___",
+      "Time really does fly by when ___",
+    ],
+  },
+  {
+    date: "2023-05-11",
+    value:
+      "I woke up early today and went for a jog in the park. It was refreshing to breathe in the fresh morning air and watch the sunrise.",
+    zh: "我今天早上起得很早，去公园慢跑。呼吸清新的早晨空气，看日出，真是令人耳目一新。",
+    keyPoints: [
+      "I woke up early today and ___",
+      "It was refreshing to ___ and ___",
+    ],
+  },
+  {
+    date: "2023-05-12",
+    value:
+      "I met up with some friends for brunch at our favorite cafe. We chatted about life and caught up on what we've been up to lately.",
+    zh: "我和一些朋友在我们最喜欢的咖啡馆吃早午餐。我们聊了聊生活，了解了我们最近在做什么。",
+    keyPoints: [
+      "I met up with some friends for ___ at ___",
+      "We chatted about ___ and ___",
+    ],
+  },
+  {
+    date: "2023-05-13",
+    value:
+      "I spent the day working on a new project at work. It's challenging but also exciting to see it coming together.",
+    zh: "我花了一天时间在工作中开展一个新项目。看到它的成长是具有挑战性但也令人兴奋的。",
+    keyPoints: [
+      "I spent the day working on ___",
+      "It's challenging but also exciting to ___",
+    ],
+  },
+  {
+    date: "2023-05-14",
+    value:
+      "I took my dog for a walk along the beach today. He loves playing in the water and chasing seagulls.",
+    zh: "今天我带我的狗沿着海滩散步。他喜欢在水里玩耍，追逐海鸥。",
+    keyPoints: [
+      "I took my dog for a walk ___",
+      "He loves ___ and ___",
+    ],
+  },
+  {
+    date: "2023-05-15",
+    value:
+      "I tried out a new recipe for dinner tonight and it turned out pretty well. Cooking is one of my favorite hobbies.",
+    zh: "今晚我尝试了一道新菜谱，结果还不错。烹饪是我最喜欢的爱好之一。",
+    keyPoints: [
+      "I tried out a new recipe for ___",
+      "It turned out ___",
+    ],
+  },
+  {
+    date: "2023-05-16",
+    value:
+      "I spent the weekend visiting family in another city. It was great to catch up with everyone and spend time together.",
+    zh: "我周末去另一个城市看望家人。很高兴能和大家见面并共度时光。",
+    keyPoints: [
+      "I spent the weekend visiting ___",
+      "It was great to ___ and ___",
+    ],
+  },
+  {
+    date: "2023-05-17",
+    value:
+      "I went to the theater to see a play tonight. It was a thought-provoking performance that had me reflecting long after it ended.",
+    zh: "今晚我去剧院看戏。这是一场发人深省的表演，让我在结束后反思了很长时间。",
+    keyPoints: [
+      "I went to the theater to see ___",
+      "It was a thought-provoking performance that ___",
+    ],
+  },
+  {
+    date: "2023-05-18",
+    value:
+      "I spent the day volunteering at a local food bank. It's rewarding to be able to help those in need.",
+    zh: "我花了一天时间在当地的食品银行做志愿者。能够帮助那些需要帮助的人是一件有意义的事。",
+    keyPoints: [
+      "I spent the day volunteering at ___",
+      "It's rewarding to ___",
+    ],
+  },
+  {
+    date: "2023-05-19",
+    value:
+      "I attended a yoga class this morning and felt so relaxed and centered afterwards. It's amazing what a good workout can do for your mental health.",
+    zh: "今天早上我参加了瑜伽课，之后感觉很放松和集中。一次很好的锻炼对你的心理健康有很大的帮助。",
+    keyPoints: [
+      "I attended a yoga class this morning and ___",
+      "It's amazing what ___ can do for ___",
+    ],
+  },
+  {
+    date: "2023-05-20",
+    value:
+      "I spent the afternoon reading a new book in my favorite cafe. It's my little slice of heaven and always puts me in a good mood.",
+    zh: "今天下午我在我最喜欢的咖啡馆读了一本新书。这是我小小的天堂，总是让我心情愉快。",
+    keyPoints: [
+      "I spent the afternoon reading ___",
+      "It's my little slice of heaven and ___",
+    ],
+  },
+  {
+    date: "2023-05-21",
+    value:
+      "I went on a hike with some friends today and we saw some beautiful scenery. It's amazing how being in nature can be so rejuvenating.",
+    zh: "今天我和一些朋友去远足，我们看到了一些美丽的风景。惊人的是，身处大自然中可以如此恢复活力。",
+    keyPoints: [
+      "I went on a hike with some friends today and ___",
+      "It's amazing how ___ can be so ___",
+    ],
+  },
+  {
+    date: "2023-05-22",
+    value:
+      "I spent the day learning a new skill - coding! It's challenging but I'm excited to see where this new knowledge will take me.",
+    zh: "我花了一天时间学习一项新技能——编码！这是具有挑战性的，但我很兴奋看到这些新知识将带给我什么。",
+    keyPoints: [
+      "I spent the day learning ___",
+      "It's challenging but ___",
+    ],
+  },
+  {
+    date: "2023-05-23",
+    value:
+      "I visited a museum today and was blown away by the art and exhibits. It's always inspiring to see creativity in action.",
+    zh: "今天我参观了一家博物馆，被艺术和展品震撼了。看到创造力在行动总是令人鼓舞的。",
+    keyPoints: [
+      "I visited a museum today and ___",
+      "It's always inspiring to ___",
+    ],
+  },
+  {
+    date: "2023-05-24",
+    value:
+      "I spent the evening practicing guitar and learning some new songs. Music is such a great way to unwind after a long day.",
+    zh: "我花了一晚上的时间练习吉他，学习一些新歌。音乐是一种很好的方式，在漫长的一天后放松身心。",
+    keyPoints: [
+      "I spent the evening practicing ___",
+      "Music is such a great way to ___",
+    ],
+  },
+  {
+    date: "2023-05-25",
+    value:
+      "I had a picnic in the park with some friends today. We played frisbee and had a great time enjoying the sunshine.",
+    zh: "今天我和一些朋友在公园里野餐。我们玩飞盘，享受阳光，玩得很开心。",
+    keyPoints: [
+      "I had a picnic in the park with some friends today and ___",
+      "We played frisbee and ___",
+    ],
+  },
+  {
+    date: "2023-05-26",
+    value:
+      "I binge-watched a new show on Netflix tonight. Sometimes it's nice to just relax and indulge in some guilty pleasure TV.",
+    zh: "今晚我在 Netflix 上看了一部新剧。有时候，只是放松一下，沉迷于一些有罪的电视节目也是很好的。",
+    keyPoints: [
+      "I binge-watched a new show on Netflix tonight and ___",
+      "Sometimes it's nice to just relax and ___",
+    ],
+  },
+  {
+    date: "2023-05-27",
+    value:
+      "I spent the day exploring a new city with my partner. It was exciting to see new sights and try new foods.",
+    zh: "我和我的伴侣花了一天时间探索一个新城市。看到新的景点，尝试新的食物，真是令人兴奋。",
+    keyPoints: [
+      "I spent the day exploring a new city with my partner and ___",
+      "It was exciting to ___",
+    ],
+  },
+  {
+    date: "2023-05-28",
+    value:
+      "I did some gardening today and planted some new flowers. There's something so satisfying about watching something grow and flourish.",
+    zh: "今天我做了一些园艺工作，种了一些新花。看着一些东西生长和繁荣，总是令人满意的。",
+    keyPoints: [
+      "I did some gardening today and ___",
+      "There's something so satisfying about ___",
+    ],
+  },
+  {
+    date: "2023-05-29",
+    value:
+      "I went to a concert tonight and danced the night away. Live music is one of my favorite things in the world.",
+    zh: "今晚我去了一场音乐会，跳了一整晚的舞。现场音乐是我最喜欢的事情之一。",
+    keyPoints: [
+      "I went to a concert tonight and ___",
+      "Live music is one of my favorite things in the world.",
+    ],
+  },
+  {
+    date: "2023-05-30",
+    value:
+      "I spent the day at the beach with some friends. We played beach volleyball and soaked up some sun.",
+    zh: "我和一些朋友在海滩上度过了一天。我们玩沙滩排球，晒了一些太阳。",
+    keyPoints: [
+      "I spent the day at the beach with some friends and ___",
+      "We played beach volleyball and ___",
+    ],
   },
 ]
 
