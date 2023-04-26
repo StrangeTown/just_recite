@@ -1,16 +1,8 @@
 // About modal
 
-import {
-  Image,
-  Linking,
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native"
+import { Image, Linking, StyleSheet, Text, View } from "react-native"
 import Colors from "../../constants/Colors"
-import { Feather } from "@expo/vector-icons"
+import SettingsModal from "./SettingsModal"
 
 interface AboutModalProps {
   visible: boolean
@@ -21,91 +13,55 @@ export default function AboutModal({ visible, onDismiss }: AboutModalProps) {
     return null
   }
 
-  const toggleModal = () => {
-    onDismiss()
-  }
-
   return (
-    <Modal
-      animationType="slide"
+    <SettingsModal
       visible={visible}
-      onRequestClose={toggleModal}
-      presentationStyle="pageSheet"
-    >
-      <View style={styles.modalContainer}>
-        <View style={styles.modal}>
-          <View style={styles.modalBody}>
-            {/* icon */}
-            <View style={styles.modalBodyItemIconWrap}>
-              <Image
-                style={styles.modalBodyItemIcon}
-                source={require("../../assets/images/icon.png")}
-              />
-            </View>
+      onDismiss={onDismiss}
+      modalBodyContent={
+        <>
+          {/* icon */}
+          <View style={styles.modalBodyItemIconWrap}>
+            <Image
+              style={styles.modalBodyItemIcon}
+              source={require("../../assets/images/icon.png")}
+            />
+          </View>
 
-            {/* version */}
-            <View style={styles.modalBodyItem}>
-              <Text style={styles.modalBodyItemText}>版本号：v1.0.2</Text>
-            </View>
+          {/* version */}
+          <View style={styles.modalBodyItem}>
+            <Text style={styles.modalBodyItemText}>版本号：v1.0.2</Text>
+          </View>
 
-            {/* author */}
-            <View style={styles.modalBodyItem}>
-              <Text style={styles.modalBodyItemText}>作者：尹星</Text>
-            </View>
+          {/* author */}
+          <View style={styles.modalBodyItem}>
+            <Text style={styles.modalBodyItemText}>作者：尹星</Text>
+          </View>
 
-            {/* email */}
-            <View style={styles.modalBodyItem}>
-              <Text style={styles.modalBodyItemText}>
-                邮箱：
-                <Text
-                  style={styles.modalBodyItemEmail}
-                  onPress={() => {
-                    Linking.openURL("mailto:yinxingdyx@163.com")
-                  }}
-                >
-                  yinxingdyx@163.com
-                </Text>
+          {/* email */}
+          <View style={styles.modalBodyItem}>
+            <Text style={styles.modalBodyItemText}>
+              邮箱：
+              <Text
+                style={styles.modalBodyItemEmail}
+                onPress={() => {
+                  Linking.openURL("mailto:yinxingdyx@163.com")
+                }}
+              >
+                yinxingdyx@163.com
               </Text>
-            </View>
+            </Text>
           </View>
-          <View style={styles.modalFooter}>
-            <TouchableOpacity
-              style={styles.modalFooterButton}
-              onPress={toggleModal}
-            >
-              {/* down icon */}
-              <Feather name="chevron-down" size={24} color={Colors.light.valueColor} />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </Modal>
+        </>
+      }
+    />
   )
 }
 
 const styles = StyleSheet.create({
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
-  },
-  modal: {
-    flex: 1,
-    width: "80%",
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    paddingTop: 100,
-    paddingBottom: 100,
-    justifyContent: "space-between",
-  },
-  modalBody: {
-    marginBottom: 20,
-  },
   modalBodyItem: {
-    alignItems: "center",
+    width: "60%",
     marginBottom: 20,
-    borderBottomColor: '#eee',
+    borderBottomColor: "#eee",
     borderBottomWidth: 1,
     paddingBottom: 20,
   },

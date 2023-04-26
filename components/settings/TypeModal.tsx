@@ -4,6 +4,8 @@ import { ContentTypes } from "../../types"
 import { useDispatch, useSelector } from "react-redux"
 import { selectContentType, setContentType } from "../../redux/settingsSlice"
 import { Feather } from "@expo/vector-icons"
+import SettingsModal from "./SettingsModal"
+import SettingsOptions from "./SettingsOptions"
 
 interface TypeModalProps {
   visible: boolean
@@ -46,103 +48,24 @@ export default function TypeModal({ visible, onDismiss }: TypeModalProps) {
   }
 
   return (
-    <Modal
-      animationType="slide"
+    <SettingsModal
       visible={visible}
-      onRequestClose={toggleModal}
-      presentationStyle="pageSheet"
-    >
-      <View style={styles.modalContainer}>
-        <View style={styles.modal}>
-          <View style={styles.modalBody}>
-            {types.map((item, index) => {
-              return (
-                <TouchableOpacity
-                  style={styles.modalBodyItem}
-                  key={item.type}
-                  onPress={() => {
-                    handleSelect(item.type)
-                  }}
-                >
-                  <Text
-                    style={[
-                      styles.modalBodyItemText,
-                      selectedContentType === item.type &&
-                        styles.modalBodyItemTextSelected,
-                    ]}
-                  >
-                    {item.label}
-                  </Text>
-                  {/* Divider */}
-                  {index !== types.length - 1 && (
-                    <View style={styles.modalBodyItemDivider} />
-                  )}
-                </TouchableOpacity>
-              )
-            })}
-          </View>
-          <View style={styles.modalFooter}>
-            <TouchableOpacity
-              style={styles.modalFooterButton}
-              onPress={toggleModal}
-            >
-              {/* down icon */}
-              <Feather
-                name="chevron-down"
-                size={24}
-                color={Colors.light.valueColor}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </Modal>
+      onDismiss={toggleModal}
+      modalBodyContent={
+        <SettingsOptions
+          options={types.map((t) => {
+            return {
+              label: t.label,
+              value: t.type,
+            }
+          })}
+          selectedValue={selectedContentType}
+          onSelect={(val) => {
+            handleSelect(val as ContentTypes)
+          }}
+        />
+      }
+    />
   )
 }
 
-const styles = StyleSheet.create({
-  modalBodyItemDivider: {
-    height: 1,
-    backgroundColor: "#eee",
-    width: 10,
-    position: "absolute",
-    bottom: 0,
-  },
-  modalFooterButton: {
-    padding: 10,
-  },
-  modalBodyItem: {
-    height: 44,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalBodyItemText: {
-    fontSize: 14,
-    color: Colors.light.valueColor,
-  },
-  modalBodyItemTextSelected: {
-    color: "#248bcc",
-  },
-  modalContainer: {
-    flex: 1,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modal: {
-    flex: 1,
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 100,
-    justifyContent: "space-between",
-  },
-  modalBody: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    // backgroundColor: "#ddd",
-  },
-  modalFooter: {
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-})
