@@ -38,9 +38,17 @@ export const customSlice = createSlice({
         state.items.push(action.payload)
       }
     },
+    removeOutdatedItems: (state) => {
+      state.items = state.items.filter((item) => {
+        const date = new Date(item.date)
+        const today = new Date()
+        today.setHours(0, 0, 0, 0)
+        return date >= today
+      })
+    },
   },
 })
 
-export const { setItems, addItem } = customSlice.actions
+export const { setItems, addItem, removeOutdatedItems } = customSlice.actions
 export const selectCustomItems = (state: RootState) => state.custom.items
 export default customSlice.reducer

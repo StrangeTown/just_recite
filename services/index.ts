@@ -4,7 +4,7 @@ import { setCompleted } from "../redux/reviewSlice"
 import store, { RootState } from "../redux/store"
 import { setDate, setProgress, setReviewCompleted } from "../redux/todaySlice"
 import persist from "../utils/persist"
-import { setItems } from "../redux/customSlice"
+import { removeOutdatedItems, setItems } from "../redux/customSlice"
 import { setContentFont, setContentType } from "../redux/settingsSlice"
 import { contentFontNames } from "../constants/Fonts"
 import { ContentTypes } from "../types"
@@ -40,7 +40,9 @@ const initReview = (state: any) => {
 
 const initCustom = (state: any) => {
   const customItems = get(state, "custom.items", [])
+  console.log("customItems", customItems)
   store.dispatch(setItems(customItems))
+  store.dispatch(removeOutdatedItems())
 }
 
 const initSettings = (state: any) => {
