@@ -294,13 +294,13 @@ const strings: DataItem[] = [
     zh: "我已经尝试学习吉他多年了，但我似乎无法掌握它。",
     keyPoints: ["I've been trying to ___", "I just can't seem to ___"],
   },
-  {
-    date: "2023-04-27",
-    value:
-      "It's crazy how much technology has changed our lives. I can't imagine going back to a world without smartphones or social media.",
-    zh: "技术如何改变了我们的生活是多么的疯狂。我无法想象回到没有智能手机或社交媒体的世界。",
-    keyPoints: ["It's crazy how much ___", "I can't imagine going back to ___"],
-  },
+  // {
+  //   date: "2023-04-27",
+  //   value:
+  //     "It's crazy how much technology has changed our lives. I can't imagine going back to a world without smartphones or social media.",
+  //   zh: "技术如何改变了我们的生活是多么的疯狂。我无法想象回到没有智能手机或社交媒体的世界。",
+  //   keyPoints: ["It's crazy how much ___", "I can't imagine going back to ___"],
+  // },
   {
     date: "2023-04-28",
     value:

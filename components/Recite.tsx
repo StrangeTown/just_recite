@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
-import { getStrings } from "../data/index"
+import { getString } from "../data/index"
 import get from "lodash.get"
 import { useState } from "react"
 import { Feather } from "@expo/vector-icons"
@@ -213,8 +213,10 @@ export default function Recite({ date }: ReciteProps) {
 
   // use custom items first if available
   const customedTodayData = customItems.find((item) => item.date === date)
-  const strings = getStrings({ type: contentType })
-  const databaseTodayData = strings.find((item) => item.date === date)
+  const databaseTodayData = getString({
+    type: contentType,
+    date,
+  })
   const todayData = customedTodayData || databaseTodayData
 
   const value = get(todayData, "value", "No data for this date")
