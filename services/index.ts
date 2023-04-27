@@ -2,18 +2,23 @@ import get from "lodash.get"
 import Config from "../constants/Config"
 import { setCompleted } from "../redux/reviewSlice"
 import store from "../redux/store"
-import { setDate, setDefaultItem, setProgress, setReviewCompleted } from "../redux/todaySlice"
+import { setDate, setProgress, setReviewCompleted } from "../redux/todaySlice"
 import persist from "../utils/persist"
 import { removeOutdatedItems, setItems } from "../redux/customSlice"
 import { setContentFont, setContentType } from "../redux/settingsSlice"
 import { contentFontNames } from "../constants/Fonts"
 import { ContentTypes } from "../types"
 
+
+export const resetTodayState = () => {
+  store.dispatch(setProgress(Config.getInitialTodayProgress()))
+  store.dispatch(setReviewCompleted([]))
+}
+
 const initToday = (state: any) => {
   const todayProgress = get(state, "today.progress", [])
   const todayDate = get(state, "today.date", "")
   const todayReviewCompleted = get(state, "today.reviewCompleted", [])
-  const todayDefaultItem = get(state, "today.defaultItem", null)
 
   // '2023-01-01'
   const today = new Date().toISOString().slice(0, 10)
@@ -32,7 +37,6 @@ const initToday = (state: any) => {
     )
   )
   store.dispatch(setReviewCompleted(todayReviewCompleted))
-  store.dispatch(setDefaultItem(todayDefaultItem))
 }
 
 const initReview = (state: any) => {

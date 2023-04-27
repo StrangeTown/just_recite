@@ -34,7 +34,7 @@ export default function AboutModal({ visible, onDismiss }: AboutModalProps) {
 
           {/* author */}
           <View style={styles.modalBodyItem}>
-            <Text style={styles.modalBodyItemText}>作者：尹星</Text>
+            <Text style={styles.modalBodyItemText}>作者：Ian</Text>
           </View>
 
           {/* email */}

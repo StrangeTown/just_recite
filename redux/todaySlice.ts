@@ -17,23 +17,18 @@ interface TodayState {
   progress: progress
   date: string // as a flag to check if TodayState is for today
   reviewCompleted: reviewCompleted
-  defaultItem: DataItem | null
 }
 
 const initialState: TodayState = {
   progress: Config.getInitialTodayProgress(),
   date: "",
   reviewCompleted: [],
-  defaultItem: null,
 }
 
 export const todaySlice = createSlice({
   name: "today",
   initialState,
   reducers: {
-    setDefaultItem: (state, action: { payload: DataItem }) => {
-      state.defaultItem = action.payload
-    },
     setReviewCompleted: (state, action: { payload: reviewCompleted }) => {
       state.reviewCompleted = action.payload
     },
@@ -68,13 +63,11 @@ export const {
   setDate,
   toggleReviewCompleted,
   setReviewCompleted,
-  setDefaultItem,
 } = todaySlice.actions
 
 export const selectProgress = (state: RootState) => state.today.progress
 export const selectDate = (state: RootState) => state.today.date
 export const selectReviewCompleted = (state: RootState) =>
   state.today.reviewCompleted
-export const selectDefaultItem = (state: RootState) => state.today.defaultItem
 
 export default todaySlice.reducer

@@ -13,10 +13,10 @@ import ReciteOptions from "./ReciteOptions"
 import { useNavigation } from "@react-navigation/native"
 import { selectContentFont, selectContentType } from "../redux/settingsSlice"
 
-interface ReciteProgressProps {}
-function ReciteProgress({}: ReciteProgressProps) {
-  const progressArr = useSelector(selectProgress)
-
+interface ReciteProgressProps {
+  progressArr: { duration: number }[]
+}
+function ReciteProgress({ progressArr }: ReciteProgressProps) {
   let longestDuration = 0
   progressArr.forEach((item) => {
     if (item.duration > longestDuration) {
@@ -271,7 +271,7 @@ export default function Recite({ date }: ReciteProps) {
       <DateString isCompleted={isCompleted} />
 
       {/* Recite Progress */}
-      <ReciteProgress />
+      <ReciteProgress progressArr={progressArr} />
 
       {/* Value */}
       <ReciteValues
