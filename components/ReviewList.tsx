@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import { useDispatch, useSelector } from "react-redux"
 import { selectCompleted } from "../redux/reviewSlice"
 import {
@@ -50,6 +50,10 @@ const Item = ({ date, value, id }: ItemProps) => {
 const EmptyList = () => {
   return (
     <View style={styles.emptyList}>
+      <Image
+        style={styles.emptyListImage}
+        source={require("../assets/images/empty.png")}
+      />
       <Text style={styles.emptyListText}>
         背过的内容会在这里显示
       </Text>
@@ -88,6 +92,11 @@ const ReviewList = () => {
 export default ReviewList
 
 const styles = StyleSheet.create({
+  emptyListImage: {
+    width: 36,
+    height: 36,
+    marginBottom: 20,
+  },
   emptyList: {
     flex: 1,
     width: "100%",
@@ -95,7 +104,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   emptyListText: {
-    fontSize: 15,
+    fontSize: 14,
     color: "#666",
   },
   listContainer: {
