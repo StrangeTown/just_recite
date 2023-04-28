@@ -9,6 +9,7 @@ import {
 } from "react-native"
 import { DataItem } from "../../types"
 import Colors from "../../constants/Colors"
+import { resetTodayState } from "../../services"
 
 interface AddItemModalProps {
   visible: boolean
@@ -31,6 +32,7 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
     }
 
     onAdd(item)
+    resetTodayState()
     setValue("")
     onDismiss()
   }

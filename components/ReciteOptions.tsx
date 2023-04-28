@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { DataItem } from "../types"
+import { ContentTypes, DataItem } from "../types"
 import { addItem } from "../redux/customSlice"
 import { Alert, StyleSheet, TouchableOpacity, View } from "react-native"
 import { useEffect, useState } from "react"
@@ -20,7 +20,7 @@ const ReciteOptions = ({ item }: ReciteOptionsProps) => {
   const zh = get(item, "zh", "")
   const keyPoints = get(item, "keyPoints", [])
   const isCustom = get(item, "isCustom", false)
-  const contentType = useSelector(selectContentType)
+  const contentType: ContentTypes = useSelector(selectContentType)
 
   const [AddItemVisible, setAddItemVisible] = useState(false)
   const [TranslationModalVisible, setTranslationModalVisible] = useState(false)
@@ -33,14 +33,25 @@ const ReciteOptions = ({ item }: ReciteOptionsProps) => {
   }
   const handleSpeakButtonPress = async () => {
     const typeLanguageMap = {
-      en: "en-US",
-      zh: "zh-CN",
-      jp: "ja-JP",
+      en: {
+        language: "en-US",
+        voice: "com.apple.ttsbundle.Samantha-compact",
+      },
+      zh: {
+        language: "zh-CN",
+        voice: "com.apple.ttsbundle.Ting-Ting-compact",
+      },
+      jp: {
+        language: "ja-JP",
+        voice: "com.apple.ttsbundle.Kyoko-compact",
+      }
     }
+    const option = typeLanguageMap[contentType]
     Speech.speak(value, {
-      language: typeLanguageMap[contentType],
-      voice: "com.apple.ttsbundle.Samantha-compact",
+      language: option.language,
+      voice: option.voice,
     })
+
   }
   useEffect(() => {
     return () => {

@@ -12,7 +12,6 @@ import { ContentTypes } from "../types"
 
 export const resetTodayState = () => {
   store.dispatch(setProgress(Config.getInitialTodayProgress()))
-  store.dispatch(setReviewCompleted([]))
 }
 
 const initToday = (state: any) => {
