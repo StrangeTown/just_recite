@@ -27,6 +27,7 @@ import {
 } from "../types"
 import LinkingConfiguration from "./LinkingConfiguration"
 import SettingsScreen from "../screens/SettingsScreen"
+import HomeScreen from "../screens/HomeScreen"
 
 export default function Navigation({
   colorScheme,
@@ -52,6 +53,11 @@ const Stack = createNativeStackNavigator<RootStackParamList>()
 function RootNavigator() {
   return (
     <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
